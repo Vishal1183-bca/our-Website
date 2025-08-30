@@ -41,6 +41,7 @@ const Home = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [navbarBg, setNavbarBg] = useState('transparent');
   const [visibleSections, setVisibleSections] = useState(new Set());
+  const [animatedElements, setAnimatedElements] = useState(new Set());
   const statsRef = useRef(null);
   const companyDescRef = useRef(null);
   const heroRef = useRef(null);
@@ -106,6 +107,19 @@ const Home = () => {
     });
   }, [hasAnimated]);
 
+  const handleElementIntersection = useCallback((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const elementId = entry.target.dataset.animateId;
+        if (elementId) {
+          setAnimatedElements(prev => new Set([...prev, elementId]));
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0) translateX(0) scale(1)';
+        }
+      }
+    });
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection, {
       threshold: 0.2,
@@ -121,6 +135,20 @@ const Home = () => {
 
     return () => observer.disconnect();
   }, [handleIntersection]);
+
+  useEffect(() => {
+    const elementObserver = new IntersectionObserver(handleElementIntersection, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    });
+
+    const animatedElements = document.querySelectorAll('[data-animate-id]');
+    animatedElements.forEach(element => {
+      elementObserver.observe(element);
+    });
+
+    return () => elementObserver.disconnect();
+  }, [handleElementIntersection]);
 
   const animateCounters = () => {
     stats.forEach((stat, index) => {
@@ -143,14 +171,97 @@ const Home = () => {
 
   return (
     <div className="modern-homepage">
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes fadeInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        
+        @keyframes fadeInRight {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        
+        @keyframes borderRotate {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        
+        .scroll-animate {
+          opacity: 0;
+          transition: all 0.8s ease-out;
+        }
+        
+        .scroll-animate.fade-up {
+          transform: translateY(30px);
+        }
+        
+        .scroll-animate.fade-left {
+          transform: translateX(-30px);
+        }
+        
+        .scroll-animate.fade-right {
+          transform: translateX(30px);
+        }
+        
+        .scroll-animate.scale {
+          transform: scale(0.9);
+        }
+        
+        .scroll-animate.delay-1 { transition-delay: 0.1s; }
+        .scroll-animate.delay-2 { transition-delay: 0.2s; }
+        .scroll-animate.delay-3 { transition-delay: 0.3s; }
+        .scroll-animate.delay-4 { transition-delay: 0.4s; }
+        .scroll-animate.delay-5 { transition-delay: 0.5s; }
+        .scroll-animate.delay-6 { transition-delay: 0.6s; }
+        .scroll-animate.delay-7 { transition-delay: 0.7s; }
+        .scroll-animate.delay-8 { transition-delay: 0.8s; }
+      `}</style>
 
       {/* Stats Section */}
       <section className="py-4 bg-dark-pattern" style={{ marginTop: '76px' }}>
         <div className="container">
           <div className="row text-center" ref={statsRef} data-section="stats">
             {stats.map((stat, index) => (
-              <div key={index} className="col-6 col-md-3 mb-3">
-                <div className="stat-card p-3">
+              <div key={index} className={`col-6 col-md-3 mb-3 scroll-animate fade-up delay-${index + 1}`} data-animate-id={`stat-${index}`}>
+                <div className="stat-card p-3" style={{ transition: 'transform 0.3s ease' }}
+                     onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+                     onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                   <h3 className="fw-bold counter-number animated-text mb-1">
                     {counters[index]}{stat.suffix}
                   </h3>
@@ -169,26 +280,29 @@ const Home = () => {
             {/* Left Content */}
             <div className="col-lg-5 col-md-12">
               <div className="hero-content">
-                <h1 className="hero-title fw-bold mb-2">Web Development.</h1>
-                <h1 className="hero-title fw-bold mb-2">Desktop Application.</h1>
-                <h1 className="hero-title fw-bold mb-2">Mobile Application.</h1>
-                <h1 className="hero-title fw-bold mb-2">UI/UX Design.</h1>
-                <h1 className="hero-title fw-bold mb-3">Graphic Design.</h1>
-                <p className="lead mb-4 animated-text">
+                <h1 className="hero-title fw-bold mb-2 scroll-animate fade-left delay-1" data-animate-id="hero-1">Web Development.</h1>
+                <h1 className="hero-title fw-bold mb-2 scroll-animate fade-left delay-2" data-animate-id="hero-2">Desktop Application.</h1>
+                <h1 className="hero-title fw-bold mb-2 scroll-animate fade-left delay-3" data-animate-id="hero-3">Mobile Application.</h1>
+                <h1 className="hero-title fw-bold mb-2 scroll-animate fade-left delay-4" data-animate-id="hero-4">UI/UX Design.</h1>
+                <h1 className="hero-title fw-bold mb-3 scroll-animate fade-left delay-5" data-animate-id="hero-5">Graphic Design.</h1>
+                <p className="lead mb-4 animated-text scroll-animate fade-left delay-6" data-animate-id="hero-6">
                   Stay ahead of the competition with our cutting-edge solutions.
                 </p>
                 
-                <Link to="/contact" className="cta-button">
-                  Get In Touch With Us
-                </Link>
+                <div className="scroll-animate fade-left delay-7" data-animate-id="hero-7">
+                  <Link to="/contact" className="cta-button" style={{ transition: 'all 0.3s ease' }}>
+                    Get In Touch With Us
+                  </Link>
+                </div>
               </div>
             </div>
             
             {/* Right Content - Sliding Service Cards */}
-            <div className="col-lg-7 col-md-12">
+            <div className="col-lg-7 col-md-12 scroll-animate fade-right delay-4" data-animate-id="hero-slider">
               <div className="service-slider">
                 <div className="slider-track" style={{
-                  transform: `translateX(${translateX}px)`
+                  transform: `translateX(${translateX}px)`,
+                  transition: 'transform 0.5s ease'
                 }}>
                   {[...services, ...services].map((service, index) => (
                     <div key={index} className="service-slide">
@@ -226,19 +340,19 @@ const Home = () => {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-10">
-              <p className="text-uppercase fw-bold mb-3" style={{ color: '#e91e63', fontSize: '14px', letterSpacing: '1px' }}>WE ARE PROFESSIONAL DIGITAL TEAM</p>
-              <h2 className="fw-bold mb-4" style={{ color: '#1a237e', fontSize: '2.5rem', lineHeight: '1.2' }}>
+              <p className="text-uppercase fw-bold mb-3 scroll-animate fade-up delay-1" data-animate-id="company-1" style={{ color: '#e91e63', fontSize: '14px', letterSpacing: '1px' }}>WE ARE PROFESSIONAL DIGITAL TEAM</p>
+              <h2 className="fw-bold mb-4 scroll-animate fade-up delay-2" data-animate-id="company-2" style={{ color: '#1a237e', fontSize: '2.5rem', lineHeight: '1.2' }}>
                 Leading <span style={{ color: '#e91e63' }}>Web Development & Digital</span><br />
                 <span style={{ color: '#1a237e' }}>Marketing Company In Vadodara</span>
               </h2>
-              <p className="mb-5 text-muted" style={{ fontSize: '16px', lineHeight: '1.6', maxWidth: '800px', margin: '0 auto 3rem' }}>
+              <p className="mb-5 text-muted scroll-animate fade-up delay-3" data-animate-id="company-3" style={{ fontSize: '16px', lineHeight: '1.6', maxWidth: '800px', margin: '0 auto 3rem' }}>
                 Our team constantly monitors the <span className="animated-text-pink" style={{ color: '#e91e63' }}>Emergence of New Technologies</span> that we are not afraid to implement in web projects.
                 We create only selling websites – this is an achievement by drawing the design and working out usability. The approach to
                 each new project is individual, we treat every <span style={{ color: '#1a237e' }}>customer equally</span>, regardless of the size of the company and its <span style={{ color: '#1a237e' }}>budget</span>.
               </p>
               
-              <h3 className="fw-bold mb-4" style={{ color: '#1a237e', fontSize: '2rem' }}>We Transform And Grow Brands In Digital World</h3>
-              <p className="text-muted" style={{ fontSize: '16px', lineHeight: '1.6', maxWidth: '900px', margin: '0 auto' }}>
+              <h3 className="fw-bold mb-4 scroll-animate fade-up delay-4" data-animate-id="company-4" style={{ color: '#1a237e', fontSize: '2rem' }}>We Transform And Grow Brands In Digital World</h3>
+              <p className="text-muted scroll-animate fade-up delay-5" data-animate-id="company-5" style={{ fontSize: '16px', lineHeight: '1.6', maxWidth: '900px', margin: '0 auto' }}>
                 Get a website designed which helps you generate more leads and sales for your business with attractive & user-friendly
                 design and effective call-to-action strategies. <span style={{ color: '#1a237e' }}>GJTecho</span> is known as the finest Web And Mobile App Development Company
                 in Vadodara providing cutting-edge web design services globally, keeping in mind the most crucial features for a website
@@ -254,14 +368,17 @@ const Home = () => {
       <section className="integrated-services py-5" style={{ backgroundColor: '#f8f9fa' }}>
         <div className="container" ref={servicesRef} data-section="services">
           <div className="row">
-            <div className="col-lg-4 mb-4">
+            <div className="col-lg-4 mb-4 scroll-animate fade-left delay-1" data-animate-id="services-intro">
               <div className="service-intro-card p-4 h-100" style={{
                 background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
                 borderRadius: '20px',
                 color: 'white',
                 position: 'relative',
-                overflow: 'hidden'
-              }}>
+                overflow: 'hidden',
+                transition: 'transform 0.3s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                 <div className="service-bg-pattern" style={{
                   position: 'absolute',
                   top: 0,
@@ -281,7 +398,7 @@ const Home = () => {
             
             <div className="col-lg-8">
               <div className="row g-4">
-                <div className="col-lg-6 col-md-6">
+                <div className="col-lg-6 col-md-6 scroll-animate fade-up delay-2" data-animate-id="service-web">
                   <div className="service-card-integrated p-4" style={{
                     background: 'linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%)',
                     borderRadius: '25px',
@@ -289,7 +406,9 @@ const Home = () => {
                     minHeight: '220px',
                     boxShadow: '0 8px 25px rgba(41, 182, 246, 0.15)',
                     transition: 'all 0.3s ease'
-                  }}>
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
                     <div className="text-center">
                       <div className="service-icon mb-3 mx-auto" style={{
                         width: '70px',
@@ -317,7 +436,7 @@ const Home = () => {
                   </div>
                 </div>
                 
-                <div className="col-lg-6 col-md-6">
+                <div className="col-lg-6 col-md-6 scroll-animate fade-up delay-3" data-animate-id="service-ecommerce">
                   <div className="service-card-integrated p-4" style={{
                     background: 'linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%)',
                     borderRadius: '25px',
@@ -325,7 +444,9 @@ const Home = () => {
                     minHeight: '220px',
                     boxShadow: '0 8px 25px rgba(255, 152, 0, 0.15)',
                     transition: 'all 0.3s ease'
-                  }}>
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
                     <div className="text-center">
                       <div className="service-icon mb-3 mx-auto" style={{
                         width: '70px',
@@ -351,7 +472,7 @@ const Home = () => {
                   </div>
                 </div>
                 
-                <div className="col-lg-4 col-md-6">
+                <div className="col-lg-4 col-md-6 scroll-animate fade-up delay-4" data-animate-id="service-mobile">
                   <div className="service-card-integrated p-4" style={{
                     background: 'linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%)',
                     borderRadius: '25px',
@@ -359,7 +480,9 @@ const Home = () => {
                     minHeight: '220px',
                     boxShadow: '0 8px 25px rgba(156, 39, 176, 0.15)',
                     transition: 'all 0.3s ease'
-                  }}>
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
                     <div className="text-center">
                       <div className="service-icon mb-3 mx-auto" style={{
                         width: '70px',
@@ -386,7 +509,7 @@ const Home = () => {
                   </div>
                 </div>
                 
-                <div className="col-lg-4 col-md-6">
+                <div className="col-lg-4 col-md-6 scroll-animate fade-up delay-5" data-animate-id="service-trending">
                   <div className="service-card-integrated p-4" style={{
                     background: 'linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%)',
                     borderRadius: '25px',
@@ -394,7 +517,9 @@ const Home = () => {
                     minHeight: '220px',
                     boxShadow: '0 8px 25px rgba(0, 188, 212, 0.15)',
                     transition: 'all 0.3s ease'
-                  }}>
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
                     <div className="text-center">
                       <div className="service-icon mb-3 mx-auto" style={{
                         width: '70px',
@@ -421,7 +546,7 @@ const Home = () => {
                   </div>
                 </div>
                 
-                <div className="col-lg-4 col-md-6">
+                <div className="col-lg-4 col-md-6 scroll-animate fade-up delay-6" data-animate-id="service-marketing">
                   <div className="service-card-integrated p-4" style={{
                     background: 'linear-gradient(135deg, #fff9c4 0%, #fff59d 100%)',
                     borderRadius: '25px',
@@ -429,7 +554,9 @@ const Home = () => {
                     minHeight: '220px',
                     boxShadow: '0 8px 25px rgba(251, 192, 45, 0.15)',
                     transition: 'all 0.3s ease'
-                  }}>
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
                     <div className="text-center">
                       <div className="service-icon mb-3 mx-auto" style={{
                         width: '70px',
@@ -460,24 +587,40 @@ const Home = () => {
             </div>
           </div>
           
-          <div className="text-center mt-5">
+          <div className="text-center mt-5 scroll-animate fade-up delay-7" data-animate-id="services-cta">
             <h3 className="fw-bold mb-3" style={{ color: '#1a237e', fontSize: '2rem' }}>
               Let's Ask Experts And Obtain <span style={{ color: '#e91e63' }}>Free Proposal</span>
             </h3>
-            <Link 
-              to="/contact" 
-              className="btn px-4 py-2"
-              style={{
-                background: 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
-                color: 'white',
-                borderRadius: '25px',
-                fontWeight: '600',
-                textDecoration: 'none',
-                border: 'none'
-              }}
-            >
-              Let's Connect →
-            </Link>
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+              <div style={{
+                position: 'absolute',
+                inset: '-2px',
+                background: 'linear-gradient(45deg, #4facfe, #e91e63, #ffc107, #4facfe)',
+                borderRadius: '27px',
+                backgroundSize: '400% 400%',
+                animation: 'borderRotate 3s linear infinite',
+                zIndex: 0
+              }}></div>
+              <Link 
+                to="/contact" 
+                className="btn px-4 py-2"
+                style={{
+                  position: 'relative',
+                  background: 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
+                  color: 'white',
+                  borderRadius: '25px',
+                  fontWeight: '600',
+                  textDecoration: 'none',
+                  border: 'none',
+                  zIndex: 1,
+                  transition: 'transform 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                Let's Connect →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -491,17 +634,17 @@ const Home = () => {
         <div className="container" ref={whyChooseRef} data-section="whychoose">
           <div className="row align-items-center">
             <div className="col-lg-6 mb-4">
-              <p className="text-uppercase fw-bold mb-3" style={{ color: '#e91e63', fontSize: '14px', letterSpacing: '1px' }}>WHY CHOOSE US</p>
-              <h2 className="fw-bold mb-4" style={{ color: '#1a237e', fontSize: '2.2rem', lineHeight: '1.2' }}>
+              <p className="text-uppercase fw-bold mb-3 scroll-animate fade-left delay-1" data-animate-id="why-1" style={{ color: '#e91e63', fontSize: '14px', letterSpacing: '1px' }}>WHY CHOOSE US</p>
+              <h2 className="fw-bold mb-4 scroll-animate fade-left delay-2" data-animate-id="why-2" style={{ color: '#1a237e', fontSize: '2.2rem', lineHeight: '1.2' }}>
                 Why The GJTecho <span style={{ color: '#e91e63' }}>Ranked Top</span> Among The Leading<br />
                 Web Development & Digital<br />
                 Marketing Companies
               </h2>
-              <p className="text-muted mb-4" style={{ fontSize: '16px', lineHeight: '1.6' }}>
+              <p className="text-muted mb-4 scroll-animate fade-left delay-3" data-animate-id="why-3" style={{ fontSize: '16px', lineHeight: '1.6' }}>
                 We pride ourselves on staying up-to-date with the latest trends and technologies in the industry, which allows us to offer cutting-edge solutions to our clients. Whether you need a new website, or a comprehensive digital marketing strategy, we have the expertise to deliver results.
               </p>
               
-              <div className="features-list">
+              <div className="features-list scroll-animate fade-left delay-4" data-animate-id="features-list">
                 {[
                   'Secured from vulnerable attacks',
                   'A Dedicated Team of Experts',
@@ -512,7 +655,11 @@ const Home = () => {
                   'Feasible and Convenient',
                   'Responsive and SEO-Optimized'
                 ].map((feature, index) => (
-                  <div key={index} className="d-flex align-items-center mb-2">
+                  <div key={index} className={`d-flex align-items-center mb-2 scroll-animate fade-left delay-${Math.min(index + 5, 8)}`} data-animate-id={`feature-${index}`} style={{
+                    transition: 'transform 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(10px)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}>
                     <div className="me-3" style={{ 
                       width: '24px', 
                       height: '24px', 
@@ -521,7 +668,8 @@ const Home = () => {
                       display: 'flex', 
                       alignItems: 'center', 
                       justifyContent: 'center',
-                      flexShrink: 0
+                      flexShrink: 0,
+                      transition: 'transform 0.2s ease'
                     }}>
                       <span style={{ color: 'white', fontSize: '12px', fontWeight: 'bold' }}>✓</span>
                     </div>
@@ -538,7 +686,17 @@ const Home = () => {
                   borderRadius: '20px',
                   padding: '3px',
                   position: 'relative',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}>
                   <div style={{
                     background: 'white',
@@ -550,7 +708,11 @@ const Home = () => {
                       src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                       alt="GJTecho Team celebrating success" 
                       className="img-fluid rounded"
-                      style={{ width: '100%', height: 'auto' }}
+                      style={{ 
+                        width: '100%', 
+                        height: 'auto',
+                        transition: 'transform 0.3s ease'
+                      }}
                     />
 
                   </div>
@@ -568,19 +730,40 @@ const Home = () => {
                   
                   <p className="text-muted mb-4">Don't wait to achieve your online goals – Contact us today</p>
                   
-                  <Link 
-                    to="/contact" 
-                    className="btn btn-outline-primary px-4 py-2"
-                    style={{
-                      borderColor: '#1a237e',
-                      color: '#1a237e',
-                      borderRadius: '25px',
-                      fontWeight: '500',
-                      textDecoration: 'none'
-                    }}
-                  >
-                    Request A Quote →
-                  </Link>
+                  <div style={{ position: 'relative', display: 'inline-block' }}>
+                    <div style={{
+                      position: 'absolute',
+                      inset: '-2px',
+                      background: 'linear-gradient(45deg, #4facfe, #e91e63, #ffc107, #4facfe)',
+                      borderRadius: '27px',
+                      backgroundSize: '400% 400%',
+                      animation: 'borderRotate 3s linear infinite',
+                      zIndex: 0
+                    }}></div>
+                    <Link 
+                      to="/contact" 
+                      className="btn btn-outline-primary px-4 py-2"
+                      style={{
+                        position: 'relative',
+                        background: 'white',
+                        borderColor: 'transparent',
+                        color: '#1a237e',
+                        borderRadius: '25px',
+                        fontWeight: '500',
+                        textDecoration: 'none',
+                        zIndex: 1
+                      }}
+                    >
+                      Request A Quote →
+                    </Link>
+                  </div>
+                  <style jsx>{`
+                    @keyframes borderRotate {
+                      0% { background-position: 0% 50%; }
+                      50% { background-position: 100% 50%; }
+                      100% { background-position: 0% 50%; }
+                    }
+                  `}</style>
                 </div>
               </div>
             </div>
@@ -592,7 +775,7 @@ const Home = () => {
       <section className="industries-section py-5" style={{ backgroundColor: '#f8f9fa' }}>
         <div className="container" ref={industriesRef} data-section="industries">
           <div className="row align-items-center">
-            <div className="col-lg-4 mb-4">
+            <div className="col-lg-4 mb-4 scroll-animate fade-left delay-1" data-animate-id="industries-intro">
               <p className="text-uppercase fw-bold mb-3" style={{ color: '#e91e63', fontSize: '14px', letterSpacing: '1px' }}>INDUSTRIES WE WORK FOR</p>
               <h2 className="fw-bold mb-4" style={{ color: '#1a237e', fontSize: '2.5rem', lineHeight: '1.2' }}>
                 Helping<br />
@@ -620,18 +803,18 @@ const Home = () => {
                   { name: 'Restaurant Service', color: '#fef3c7', icon: '🍽️' },
                   { name: 'Business Consultant', color: '#86efac', icon: '💼' }
                 ].map((industry, index) => (
-                  <div key={index} className="col-6 col-md-4 col-lg-3">
+                  <div key={index} className={`col-6 col-md-4 col-lg-3 scroll-animate scale delay-${Math.min(index + 2, 8)}`} data-animate-id={`industry-${index}`}>
                     <div 
                       className="industry-card p-4 text-center h-100 d-flex flex-column justify-content-center"
                       style={{
                         backgroundColor: industry.color,
                         borderRadius: '20px',
                         minHeight: '120px',
-                        transition: 'transform 0.3s ease',
+                        transition: 'all 0.3s ease',
                         cursor: 'pointer'
                       }}
-                      onMouseEnter={(e) => e.target.style.transform = 'translateY(-5px)'}
-                      onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
+                      onMouseEnter={(e) => e.target.style.transform = 'translateY(-10px) scale(1.05)'}
+                      onMouseLeave={(e) => e.target.style.transform = 'translateY(0) scale(1)'}
                     >
                       <div style={{ fontSize: '2rem', marginBottom: '10px' }}>{industry.icon}</div>
                       <h6 className="fw-bold mb-0" style={{ color: '#1a237e', fontSize: '14px', lineHeight: '1.3' }}>
@@ -654,45 +837,81 @@ const Home = () => {
         position: 'relative',
         overflow: 'hidden'
       }}>
+        <style jsx>{`
+          @media (max-width: 768px) {
+            .lets-work-together {
+              background-image: none !important;
+              padding: 3rem 1rem !important;
+            }
+            .lets-work-together .container {
+              padding: 0 !important;
+            }
+            .lets-work-together h2 {
+              font-size: 1.8rem !important;
+              line-height: 1.3 !important;
+            }
+            .decorative-circle-left,
+            .decorative-circle-right {
+              display: none !important;
+            }
+          }
+        `}</style>
         <div className="container">
           <div className="row justify-content-center text-center">
             <div className="col-lg-8">
-              <p className="text-uppercase fw-bold mb-3" style={{ color: '#e91e63', fontSize: '14px', letterSpacing: '1px' }}>LET'S WORK TOGETHER</p>
-              <h2 className="fw-bold mb-4" style={{ color: '#1a237e', fontSize: '2.5rem', lineHeight: '1.2' }}>
+              <p className="text-uppercase fw-bold mb-3 scroll-animate fade-up delay-1" data-animate-id="work-1" style={{ color: '#e91e63', fontSize: '14px', letterSpacing: '1px' }}>LET'S WORK TOGETHER</p>
+              <h2 className="fw-bold mb-4 scroll-animate fade-up delay-2" data-animate-id="work-2" style={{ color: '#1a237e', fontSize: '2.5rem', lineHeight: '1.2' }}>
                 We Love to Listen to Your<br />
                 Requirements
               </h2>
               
-              <div className="mb-4">
-                <Link 
-                  to="/contact" 
-                  className="btn px-4 py-2"
-                  style={{
-                    background: 'transparent',
-                    color: '#1a237e',
-                    border: '2px solid #1a237e',
-                    borderRadius: '25px',
-                    fontWeight: '500',
-                    textDecoration: 'none',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = '#1a237e';
-                    e.target.style.color = 'white';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = 'transparent';
-                    e.target.style.color = '#1a237e';
-                  }}
-                >
-                  Estimate Project →
-                </Link>
+              <div className="mb-4 scroll-animate fade-up delay-3" data-animate-id="work-3">
+                <div style={{ position: 'relative', display: 'inline-block' }}>
+                  <div style={{
+                    position: 'absolute',
+                    inset: '-2px',
+                    background: 'linear-gradient(45deg, #4facfe, #e91e63, #ffc107, #4facfe)',
+                    borderRadius: '27px',
+                    backgroundSize: '400% 400%',
+                    animation: 'borderRotate 3s linear infinite',
+                    zIndex: 0
+                  }}></div>
+                  <Link 
+                    to="/contact" 
+                    className="btn px-4 py-2"
+                    style={{
+                      position: 'relative',
+                      background: 'white',
+                      color: '#1a237e',
+                      borderColor: 'transparent',
+                      borderRadius: '25px',
+                      fontWeight: '500',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                      zIndex: 1
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = '#1a237e';
+                      e.target.style.color = 'white';
+                      e.target.style.transform = 'scale(1.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = 'white';
+                      e.target.style.color = '#1a237e';
+                      e.target.style.transform = 'scale(1)';
+                    }}
+                  >
+                    Estimate Project →
+                  </Link>
+                </div>
               </div>
               
-              <div className="d-flex align-items-center justify-content-center gap-2" style={{ color: '#666' }}>
+              <div className="d-flex align-items-center justify-content-center gap-2 scroll-animate fade-up delay-4" data-animate-id="work-4" style={{ color: '#666' }}>
                 <span>Or call us now</span>
                 <i className="fas fa-phone" style={{ color: '#1a237e' }}></i>
-                <a href="tel:+918866392521" style={{ color: '#1a237e', textDecoration: 'none', fontWeight: '500' }}>
+                <a href="tel:+918866392521" style={{ color: '#1a237e', textDecoration: 'none', fontWeight: '500', transition: 'color 0.3s ease' }}
+                   onMouseEnter={(e) => e.target.style.color = '#e91e63'}
+                   onMouseLeave={(e) => e.target.style.color = '#1a237e'}>
                   +91 88663 92521
                 </a>
               </div>
@@ -701,7 +920,7 @@ const Home = () => {
         </div>
         
         {/* Decorative Elements */}
-        <div style={{
+        <div className="decorative-circle-left" style={{
           position: 'absolute',
           top: '20%',
           left: '-5%',
@@ -713,7 +932,7 @@ const Home = () => {
           zIndex: 1
         }}></div>
         
-        <div style={{
+        <div className="decorative-circle-right" style={{
           position: 'absolute',
           top: '10%',
           right: '-5%',
