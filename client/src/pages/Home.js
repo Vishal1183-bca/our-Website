@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import ChatWidget from '../components/ChatWidget';
 
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const stats = [
     { number: 20, suffix: '+', label: 'Projects/Year' },
     { number: 24, suffix: '/7', label: 'Support' },
@@ -335,34 +339,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Company Description Section */}
-      <section ref={companyDescRef} className="company-description py-5 text-center" style={{ backgroundColor: '#FFF8F2' }} data-section="company">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-10">
-              <p className="text-uppercase fw-bold mb-3 scroll-animate fade-up delay-1" data-animate-id="company-1" style={{ color: '#e91e63', fontSize: '14px', letterSpacing: '1px' }}>WE ARE PROFESSIONAL DIGITAL TEAM</p>
-              <h2 className="fw-bold mb-4 scroll-animate fade-up delay-2" data-animate-id="company-2" style={{ color: '#1a237e', fontSize: '2.5rem', lineHeight: '1.2' }}>
-                Leading <span style={{ color: '#e91e63' }}>Web Development & Digital</span><br />
-                <span style={{ color: '#1a237e' }}>Marketing Company In Vadodara</span>
-              </h2>
-              <p className="mb-5 text-muted scroll-animate fade-up delay-3" data-animate-id="company-3" style={{ fontSize: '16px', lineHeight: '1.6', maxWidth: '800px', margin: '0 auto 3rem' }}>
-                Our team constantly monitors the <span className="animated-text-pink" style={{ color: '#e91e63' }}>Emergence of New Technologies</span> that we are not afraid to implement in web projects.
-                We create only selling websites – this is an achievement by drawing the design and working out usability. The approach to
-                each new project is individual, we treat every <span style={{ color: '#1a237e' }}>customer equally</span>, regardless of the size of the company and its <span style={{ color: '#1a237e' }}>budget</span>.
-              </p>
-              
-              <h3 className="fw-bold mb-4 scroll-animate fade-up delay-4" data-animate-id="company-4" style={{ color: '#1a237e', fontSize: '2rem' }}>We Transform And Grow Brands In Digital World</h3>
-              <p className="text-muted scroll-animate fade-up delay-5" data-animate-id="company-5" style={{ fontSize: '16px', lineHeight: '1.6', maxWidth: '900px', margin: '0 auto' }}>
-                Get a website designed which helps you generate more leads and sales for your business with attractive & user-friendly
-                design and effective call-to-action strategies. <span style={{ color: '#1a237e' }}>GJTecho</span> is known as the finest Web And Mobile App Development Company
-                in Vadodara providing cutting-edge web design services globally, keeping in mind the most crucial features for a website
-                such as its responsive design, faster loading speed, and user-friendly navigation. Our main focus, as a Website Designing
-                Company, is to provide strategic planning & the industry's best product to compete in the market.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Integrated Services Section */}
       <section className="integrated-services py-5" style={{ backgroundColor: '#f8f9fa' }}>

@@ -65,12 +65,92 @@ const Navbar = () => {
               }}>ABOUT</Link>
             </li>
             <li className="nav-item dropdown">
-              <Link className="nav-link dropdown-toggle" to="/services" style={{
+              <a className="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{
                 color: '#333',
                 fontWeight: '500',
                 margin: '0 0.5rem',
-                transition: 'all 0.3s ease'
-              }}>SERVICES+</Link>
+                transition: 'all 0.3s ease',
+                textDecoration: 'none'
+              }}>SERVICES+</a>
+              <ul className="dropdown-menu" aria-labelledby="servicesDropdown" style={{
+                background: 'white',
+                border: '1px solid rgba(0,0,0,0.1)',
+                borderRadius: '10px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                padding: '10px 0',
+                minWidth: '200px'
+              }}>
+                <li><Link className="dropdown-item" to="/services/web-development" style={{
+                  color: '#333',
+                  padding: '10px 20px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }} onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#f8f9fa';
+                  e.target.style.color = '#e91e63';
+                }} onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                  e.target.style.color = '#333';
+                }}>Web Development</Link></li>
+                <li><Link className="dropdown-item" to="/services/app-development" style={{
+                  color: '#333',
+                  padding: '10px 20px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }} onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#f8f9fa';
+                  e.target.style.color = '#e91e63';
+                }} onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                  e.target.style.color = '#333';
+                }}>App Development</Link></li>
+                <li><Link className="dropdown-item" to="/services/ui-ux" style={{
+                  color: '#333',
+                  padding: '10px 20px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }} onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#f8f9fa';
+                  e.target.style.color = '#e91e63';
+                }} onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                  e.target.style.color = '#333';
+                }}>UI/UX</Link></li>
+                <li><Link className="dropdown-item" to="/services/graphic-design" style={{
+                  color: '#333',
+                  padding: '10px 20px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }} onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#f8f9fa';
+                  e.target.style.color = '#e91e63';
+                }} onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                  e.target.style.color = '#333';
+                }}>Graphic Design</Link></li>
+                <li><Link className="dropdown-item" to="/services/desktop-application" style={{
+                  color: '#333',
+                  padding: '10px 20px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }} onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#f8f9fa';
+                  e.target.style.color = '#e91e63';
+                }} onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                  e.target.style.color = '#333';
+                }}>Desktop Application</Link></li>
+              </ul>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/portfolio" style={{
@@ -80,42 +160,27 @@ const Navbar = () => {
                 transition: 'all 0.3s ease'
               }}>PORTFOLIO</Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/blogs" style={{
-                color: '#333',
-                fontWeight: '500',
-                margin: '0 0.5rem',
-                transition: 'all 0.3s ease'
-              }}>BLOGS</Link>
-            </li>
             <li className="nav-item ms-3">
-              <div className="d-flex gap-2">
-                <a href="tel:+918866392521" className="btn btn-sm" style={{
-                  background: isContactPage ? 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)' : 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '40px',
-                  height: '40px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textDecoration: 'none'
-                }}>
-                  <i className="fas fa-phone" style={{ fontSize: '14px' }}></i>
-                </a>
-                <Link to="/contact" className="btn btn-sm" style={{
-                  background: isContactPage ? 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)' : 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '25px',
-                  padding: '8px 20px',
-                  fontWeight: '500',
-                  textDecoration: 'none'
-                }}>
-                  Contact Us
-                </Link>
-              </div>
+              <Link to="/contact" className="btn btn-sm" style={{
+                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '25px',
+                padding: '8px 20px',
+                fontWeight: '500',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 4px 15px rgba(99, 102, 241, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = 'none';
+              }}>
+                Contact Us
+              </Link>
             </li>
           </ul>
         </div>

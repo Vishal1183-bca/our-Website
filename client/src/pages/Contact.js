@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -8,6 +13,12 @@ const Contact = () => {
     service: '',
     message: '',
     agreed: false
+  });
+
+  const [submitStatus, setSubmitStatus] = useState({
+    isSubmitting: false,
+    isSubmitted: false,
+    error: null
   });
 
   const handleChange = (e) => {
@@ -18,9 +29,54 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setSubmitStatus({ isSubmitting: true, isSubmitted: false, error: null });
+
+    try {
+      // EmailJS configuration
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        message: formData.message,
+        to_email: 'vishalbhaliya54@gmail.com'
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(
+        'service_vishalbhaliya54', // Try this Service ID format
+        'template_rdl0lq8', // Your Template ID
+        templateParams,
+        'PjU6a8Kd00jPw3JUb' // Your Public Key
+      );
+      
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: '',
+        agreed: false
+      });
+      
+      setSubmitStatus({ isSubmitting: false, isSubmitted: true, error: null });
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus({ isSubmitting: false, isSubmitted: false, error: null });
+      }, 5000);
+      
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitStatus({ 
+        isSubmitting: false, 
+        isSubmitted: false, 
+        error: 'Failed to send message. Please try again.' 
+      });
+    }
   };
 
   return (
@@ -179,20 +235,61 @@ const Contact = () => {
                   </label>
                 </div>
 
+                {/* Success Message */}
+                {submitStatus.isSubmitted && (
+                  <div className="alert alert-success mb-4" style={{
+                    backgroundColor: '#d4edda',
+                    borderColor: '#c3e6cb',
+                    color: '#155724',
+                    padding: '12px 20px',
+                    borderRadius: '8px',
+                    border: '1px solid #c3e6cb'
+                  }}>
+                    <i className="fas fa-check-circle me-2"></i>
+                    Thank you! Your message has been sent successfully. We'll get back to you soon.
+                  </div>
+                )}
+
+                {/* Error Message */}
+                {submitStatus.error && (
+                  <div className="alert alert-danger mb-4" style={{
+                    backgroundColor: '#f8d7da',
+                    borderColor: '#f5c6cb',
+                    color: '#721c24',
+                    padding: '12px 20px',
+                    borderRadius: '8px',
+                    border: '1px solid #f5c6cb'
+                  }}>
+                    <i className="fas fa-exclamation-circle me-2"></i>
+                    {submitStatus.error}
+                  </div>
+                )}
+
                 <button
                   type="submit"
+                  disabled={submitStatus.isSubmitting}
                   className="btn w-100 w-md-auto px-4 py-2"
                   style={{
-                    background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
+                    background: submitStatus.isSubmitting 
+                      ? 'linear-gradient(135deg, #ccc 0%, #999 100%)' 
+                      : 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '25px',
                     fontWeight: '500',
                     fontSize: 'clamp(14px, 2.5vw, 16px)',
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s ease',
+                    cursor: submitStatus.isSubmitting ? 'not-allowed' : 'pointer'
                   }}
                 >
-                  Submit →
+                  {submitStatus.isSubmitting ? (
+                    <>
+                      <i className="fas fa-spinner fa-spin me-2"></i>
+                      Sending...
+                    </>
+                  ) : (
+                    'Submit →'
+                  )}
                 </button>
               </form>
             </div>
