@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -7,186 +6,268 @@ const Contact = () => {
     email: '',
     phone: '',
     service: '',
-    message: ''
+    message: '',
+    agreed: false
   });
-  const [status, setStatus] = useState({ type: '', message: '' });
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: type === 'checkbox' ? checked : value
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    
-    try {
-      const response = await axios.post('/api/contact', formData);
-      setStatus({ type: 'success', message: response.data.message });
-      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
-    } catch (error) {
-      setStatus({ type: 'error', message: 'Failed to send message. Please try again.' });
-    }
-    
-    setLoading(false);
+    console.log('Form submitted:', formData);
   };
 
   return (
-    <section className="py-5" style={{ marginTop: '76px' }}>
-      <div className="container">
-        <div className="text-center mb-5">
-          <h1 className="fw-bold">Contact Us</h1>
-          <p className="lead">Ready to start your project? Get in touch with our team</p>
-        </div>
+    <section className="contact-page" style={{ 
+      marginTop: '76px',
+      backgroundColor: 'white',
+      backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px)',
+      backgroundSize: '20px 20px',
+      minHeight: '100vh',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      <div className="container py-3 py-md-5">
+        <div className="row align-items-start align-items-lg-center">
+          {/* Left Side - Form */}
+          <div className="col-12 col-lg-7 mb-4 mb-lg-0 order-2 order-lg-1">
+            <div className="contact-form-section">
+              <p className="text-uppercase fw-bold mb-3" style={{ color: '#e91e63', fontSize: '14px', letterSpacing: '1px' }}>CONTACT NOW</p>
+              <h1 className="fw-bold mb-3" style={{ 
+                color: '#1a237e', 
+                fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', 
+                lineHeight: '1.2' 
+              }}>
+                Have Question? Write a<br className="d-none d-md-block" />
+                Message
+              </h1>
+              <p className="mb-4" style={{ 
+                color: '#666', 
+                fontSize: 'clamp(14px, 2.5vw, 16px)' 
+              }}>
+                We will catch you as early as we receive the message
+              </p>
 
-        {status.message && (
-          <div className={`alert alert-${status.type === 'success' ? 'success' : 'danger'} alert-dismissible fade show`}>
-            {status.message}
-            <button type="button" className="btn-close" onClick={() => setStatus({ type: '', message: '' })}></button>
-          </div>
-        )}
-
-        <div className="row">
-          <div className="col-lg-8">
-            <div className="card shadow-sm">
-              <div className="card-body">
-                <h3 className="card-title mb-4">Send us a Message</h3>
-                <form onSubmit={handleSubmit}>
-                  <div className="row">
-                    <div className="col-md-6 mb-3">
-                      <label htmlFor="name" className="form-label">Full Name *</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label htmlFor="email" className="form-label">Email Address *</label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6 mb-3">
-                      <label htmlFor="phone" className="form-label">Phone Number</label>
-                      <input
-                        type="tel"
-                        className="form-control"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label htmlFor="service" className="form-label">Service Interested In *</label>
-                      <select
-                        className="form-select"
-                        id="service"
-                        name="service"
-                        value={formData.service}
-                        onChange={handleChange}
-                        required
-                      >
-                        <option value="">Select a service</option>
-                        <option value="web-development">Web Development</option>
-                        <option value="mobile-development">Mobile Development</option>
-                        <option value="ui-ux-design">UI/UX Design</option>
-                        <option value="digital-marketing">Digital Marketing</option>
-                        <option value="consultation">Free Consultation</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="message" className="form-label">Project Details *</label>
-                    <textarea
+              <form onSubmit={handleSubmit}>
+                <div className="row mb-3">
+                  <div className="col-12 col-md-6 mb-3 mb-md-0">
+                    <input
+                      type="text"
                       className="form-control"
-                      id="message"
-                      name="message"
-                      rows="5"
-                      placeholder="Tell us about your project requirements, timeline, and budget..."
-                      value={formData.message}
+                      name="name"
+                      placeholder="Full Name*"
+                      value={formData.name}
                       onChange={handleChange}
+                      style={{
+                        border: 'none',
+                        borderBottom: '2px solid #e0e0e0',
+                        borderRadius: '0',
+                        padding: '12px 0',
+                        background: 'transparent',
+                        fontSize: 'clamp(14px, 2.5vw, 16px)'
+                      }}
                       required
-                    ></textarea>
+                    />
                   </div>
-                  <button type="submit" className="btn btn-primary btn-lg" disabled={loading}>
-                    {loading ? (
-                      <>
-                        <i className="fas fa-spinner fa-spin me-2"></i>Sending...
-                      </>
-                    ) : (
-                      'Send Message'
-                    )}
-                  </button>
-                </form>
-              </div>
+                  <div className="col-12 col-md-6">
+                    <input
+                      type="tel"
+                      className="form-control"
+                      name="phone"
+                      placeholder="Mobile Number*"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      style={{
+                        border: 'none',
+                        borderBottom: '2px solid #e0e0e0',
+                        borderRadius: '0',
+                        padding: '12px 0',
+                        background: 'transparent',
+                        fontSize: 'clamp(14px, 2.5vw, 16px)'
+                      }}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="row mb-3">
+                  <div className="col-12 col-md-6 mb-3 mb-md-0">
+                    <input
+                      type="email"
+                      className="form-control"
+                      name="email"
+                      placeholder="Email Address*"
+                      value={formData.email}
+                      onChange={handleChange}
+                      style={{
+                        border: 'none',
+                        borderBottom: '2px solid #e0e0e0',
+                        borderRadius: '0',
+                        padding: '12px 0',
+                        background: 'transparent',
+                        fontSize: 'clamp(14px, 2.5vw, 16px)'
+                      }}
+                      required
+                    />
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <select
+                      className="form-select"
+                      name="service"
+                      value={formData.service}
+                      onChange={handleChange}
+                      style={{
+                        border: 'none',
+                        borderBottom: '2px solid #e0e0e0',
+                        borderRadius: '0',
+                        padding: '12px 0',
+                        background: 'transparent',
+                        fontSize: 'clamp(14px, 2.5vw, 16px)'
+                      }}
+                      required
+                    >
+                      <option value="">Interested In*</option>
+                      <option value="web-development">Web Development</option>
+                      <option value="mobile-development">Mobile Development</option>
+                      <option value="ui-ux-design">UI/UX Design</option>
+                      <option value="digital-marketing">Digital Marketing</option>
+                      <option value="ecommerce">Ecommerce Development</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <textarea
+                    className="form-control"
+                    name="message"
+                    rows="4"
+                    placeholder="Brief about the project*"
+                    value={formData.message}
+                    onChange={handleChange}
+                    style={{
+                      border: 'none',
+                      borderBottom: '2px solid #e0e0e0',
+                      borderRadius: '0',
+                      padding: '15px 0',
+                      background: 'transparent',
+                      fontSize: '16px',
+                      resize: 'none'
+                    }}
+                    required
+                  ></textarea>
+                </div>
+
+                <div className="form-check mb-4">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    name="agreed"
+                    id="agreed"
+                    checked={formData.agreed}
+                    onChange={handleChange}
+                    style={{ accentColor: '#e91e63' }}
+                    required
+                  />
+                  <label className="form-check-label" htmlFor="agreed" style={{ fontSize: '14px', color: '#666' }}>
+                    By clicking the 'Submit' button you agree to our <a href="#" style={{ color: '#e91e63' }}>Terms & Conditions</a>.
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn w-100 w-md-auto px-4 py-2"
+                  style={{
+                    background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '25px',
+                    fontWeight: '500',
+                    fontSize: 'clamp(14px, 2.5vw, 16px)',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  Submit →
+                </button>
+              </form>
             </div>
           </div>
-          
-          <div className="col-lg-4">
-            <div className="card shadow-sm">
-              <div className="card-body">
-                <h3 className="card-title mb-4">Get in Touch</h3>
-                
-                <div className="contact-info">
-                  <div className="d-flex mb-3">
-                    <i className="fas fa-map-marker-alt text-primary me-3 mt-1"></i>
-                    <div>
-                      <h6 className="mb-1">Address</h6>
-                      <p className="text-muted mb-0">Vadodara, Gujarat, India</p>
-                    </div>
-                  </div>
-                  
-                  <div className="d-flex mb-3">
-                    <i className="fas fa-phone text-primary me-3 mt-1"></i>
-                    <div>
-                      <h6 className="mb-1">Phone</h6>
-                      <p className="text-muted mb-0">+91 98765 43210</p>
-                    </div>
-                  </div>
-                  
-                  <div className="d-flex mb-3">
-                    <i className="fas fa-envelope text-primary me-3 mt-1"></i>
-                    <div>
-                      <h6 className="mb-1">Email</h6>
-                      <p className="text-muted mb-0">info@digitalagency.com</p>
-                    </div>
-                  </div>
-                  
-                  <div className="d-flex mb-4">
-                    <i className="fas fa-clock text-primary me-3 mt-1"></i>
-                    <div>
-                      <h6 className="mb-1">Support Hours</h6>
-                      <p className="text-muted mb-0">24/7 Available</p>
-                    </div>
-                  </div>
-                </div>
 
-                <div className="bg-light p-3 rounded">
-                  <h6 className="fw-bold mb-2">Quick Response Guarantee</h6>
-                  <p className="small text-muted mb-0">We respond to all inquiries within 2 hours during business hours and within 24 hours on weekends.</p>
+          {/* Right Side - Contact Info */}
+          <div className="col-12 col-lg-5 order-1 order-lg-2">
+            <div className="contact-info-cards">
+              {/* Phone Card */}
+              <div className="contact-card mb-3 mb-md-4 p-3 p-md-4" style={{
+                background: 'rgba(255, 255, 255, 0.8)',
+                borderRadius: '15px',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
+                border: '1px solid rgba(0,0,0,0.05)'
+              }}>
+                <div className="d-flex align-items-center mb-2">
+                  <i className="fas fa-phone" style={{ color: '#1a237e', fontSize: 'clamp(16px, 3vw, 20px)', marginRight: '10px' }}></i>
+                  <h5 className="mb-0" style={{ color: '#1a237e', fontWeight: '600', fontSize: 'clamp(16px, 3vw, 18px)' }}>Phone:</h5>
                 </div>
+                <p className="mb-2" style={{ color: '#666', fontSize: 'clamp(12px, 2vw, 14px)' }}>
+                  Assistance hours: Monday - Saturday, 11 am to 9 pm
+                </p>
+                <a href="tel:+918866392521" style={{ 
+                  color: '#1a237e', 
+                  textDecoration: 'none', 
+                  fontWeight: '500',
+                  fontSize: 'clamp(14px, 2.5vw, 16px)'
+                }}>
+                  (+91) 88663 92521
+                </a>
+              </div>
+
+              {/* Email Card */}
+              <div className="contact-card mb-4 p-4" style={{
+                background: 'rgba(255, 255, 255, 0.8)',
+                borderRadius: '20px',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
+                border: '1px solid rgba(0,0,0,0.05)'
+              }}>
+                <div className="d-flex align-items-center mb-2">
+                  <i className="fas fa-envelope" style={{ color: '#1a237e', fontSize: '20px', marginRight: '10px' }}></i>
+                  <h5 className="mb-0" style={{ color: '#1a237e', fontWeight: '600' }}>Email:</h5>
+                </div>
+                <p className="mb-2" style={{ color: '#666', fontSize: '14px' }}>
+                  Our support team will get back to you during standard business hours.
+                </p>
+                <a href="mailto:info@gjtecho.com" style={{ color: '#e91e63', textDecoration: 'none', fontWeight: '500' }}>
+                  Let's Connect - Click Here
+                </a>
+              </div>
+
+              {/* LinkedIn Card */}
+              <div className="contact-card p-4" style={{
+                background: 'rgba(255, 255, 255, 0.8)',
+                borderRadius: '20px',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
+                border: '1px solid rgba(0,0,0,0.05)'
+              }}>
+                <div className="d-flex align-items-center mb-2">
+                  <i className="fab fa-linkedin" style={{ color: '#1a237e', fontSize: '20px', marginRight: '10px' }}></i>
+                  <h5 className="mb-0" style={{ color: '#1a237e', fontWeight: '600' }}>LinkedIn:</h5>
+                </div>
+                <p className="mb-2" style={{ color: '#666', fontSize: '14px' }}>
+                  We are available Monday - Saturday, 24/7
+                </p>
+                <a href="#" style={{ color: '#1a237e', textDecoration: 'none', fontWeight: '500' }}>
+                  GJTecho.com
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+
     </section>
   );
 };

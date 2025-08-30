@@ -190,6 +190,16 @@ body::after {
   font-weight: 500;
 }
 
+.animated-text-pink {
+  background: linear-gradient(45deg, #ff1493, #800020, #ff1493, #800020);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: colorShift 3s ease-in-out infinite;
+  font-weight: 500;
+}
+
 @keyframes colorShift {
   0% {
     background-position: 0% 50%;
@@ -1052,6 +1062,9 @@ footer a:hover {
   position: relative;
   overflow: hidden;
   padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .modern-hero::after {
@@ -1465,6 +1478,32 @@ footer a:hover {
   transform: translateY(-5px) scale(1.02);
 }
 
+/* Scroll Animations */
+.animate-section {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-section.animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Service Cards Integrated Responsive */
+.service-card-integrated:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+}
+
+.service-intro-card {
+  transition: transform 0.3s ease;
+}
+
+.service-intro-card:hover {
+  transform: translateY(-5px);
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .modern-title {
@@ -1516,6 +1555,22 @@ footer a:hover {
     font-size: 2.5rem;
   }
   
+  .modern-hero {
+    min-height: 80vh;
+  }
+  
+  .hero-content h1 {
+    margin-left: 0 !important;
+  }
+  
+  .hero-content p {
+    margin-left: 0 !important;
+  }
+  
+  .hero-content .cta-button {
+    margin-left: 0 !important;
+  }
+  
   .service-slider {
     height: 250px;
     margin: 0;
@@ -1538,15 +1593,34 @@ footer a:hover {
     flex-direction: column;
     gap: 15px;
   }
+  
+  .service-card-integrated {
+    margin-bottom: 1rem;
+    min-height: 180px !important;
+  }
+  
+  .integrated-services .col-lg-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .integrated-services .row > div {
+    margin-bottom: 1rem;
+  }
 }
 
 @media (max-width: 576px) {
   .modern-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+  
+  .modern-hero {
+    min-height: 70vh;
   }
   
   .hero-content {
     padding: 1rem;
+    text-align: center;
   }
   
   .cta-button {
@@ -1555,39 +1629,13 @@ footer a:hover {
   }
   
   .service-slider {
-    height: 220px;
-    margin: 0;
-    padding: 0.5rem;
-  }
-  
-  .service-card-modern {
-    padding: 1rem;
-  }
-  
-  .service-card-modern h3 {
-    font-size: 1.1rem;
-  }
-  
-  .service-slide {
-    max-width: 100%;
-  }
-  
-
-}
-
-@media (max-width: 400px) {
-  .modern-title {
-    font-size: 1.8rem;
-  }
-  
-  .service-slider {
     height: 200px;
     margin: 0;
     padding: 0.25rem;
   }
   
-  .illustration-content i {
-    font-size: 2.5rem;
+  .service-card-modern {
+    padding: 1rem;
   }
   
   .service-card-modern h3 {
@@ -1598,8 +1646,90 @@ footer a:hover {
     max-width: 100%;
   }
   
+  .service-intro-card {
+    text-align: center;
+  }
+  
+  .service-intro-card h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .service-card-integrated {
+    min-height: 160px !important;
+  }
+  
+  .service-card-integrated h4 {
+    font-size: 1rem;
+  }
+  
+  .tech-badges .badge {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+  
+  .integrated-services .col-lg-4,
+  .integrated-services .col-lg-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .lets-work-together h2 {
+    font-size: 1.8rem !important;
+  }
+  
+  .lets-work-together .d-flex {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+}
+
+@media (max-width: 400px) {
+  .modern-title {
+    font-size: 1.5rem;
+  }
+  
+  .service-slider {
+    height: 180px;
+    margin: 0;
+    padding: 0.25rem;
+  }
+  
+  .illustration-content i {
+    font-size: 2rem;
+  }
+  
+  .service-card-modern h3 {
+    font-size: 0.9rem;
+  }
+  
+  .service-slide {
+    max-width: 100%;
+  }
+  
   .chat-widget {
     height: 400px;
+  }
+  
+  .service-intro-card h2 {
+    font-size: 1.3rem !important;
+  }
+  
+  .service-intro-card p {
+    font-size: 14px !important;
+  }
+  
+  .service-card-integrated {
+    padding: 1rem !important;
+  }
+  
+  .service-icon {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  
+  .service-icon i {
+    font-size: 20px !important;
   }
 }
 
@@ -1837,5 +1967,70 @@ footer a:hover {
     width: calc(100vw - 20px);
     right: 10px;
     left: 10px;
+  }
+}
+
+/* Navbar Responsive */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.2rem !important;
+  }
+  
+  .navbar-brand div {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  
+  .navbar-nav .nav-link {
+    padding: 0.5rem 0 !important;
+    text-align: center;
+  }
+  
+  .navbar-nav .btn {
+    margin: 0.5rem auto !important;
+  }
+}
+
+/* Contact Page Responsive */
+@media (max-width: 768px) {
+  .contact-page h1 {
+    font-size: 2rem !important;
+  }
+  
+  .contact-form-section {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .contact-info-cards {
+    margin-top: 2rem;
+  }
+  
+  .contact-card {
+    margin-bottom: 1rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-page h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  .contact-page .form-control,
+  .contact-page .form-select {
+    font-size: 14px !important;
+    padding: 12px 0 !important;
+  }
+  
+  .contact-card {
+    padding: 1rem !important;
+  }
+  
+  .contact-card h5 {
+    font-size: 1rem;
+  }
+  
+  .contact-card p {
+    font-size: 12px !important;
   }
 }
