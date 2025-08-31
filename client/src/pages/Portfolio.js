@@ -11,49 +11,57 @@ const Portfolio = () => {
       title: 'E-commerce Web Development',
       category: 'Website Development',
       image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'ecommerce-web'
+      slug: 'ecommerce-web',
+      projectLink: 'https://your-ecommerce-project.com'
     },
     {
       title: 'Hotel Management Desktop Application',
       category: 'Desktop Application',
       image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'hotel-management'
+      slug: 'hotel-management',
+      projectLink: 'https://github.com/yourusername/hotel-management'
     },
     {
       title: 'Udhar Book App Development',
       category: 'Mobile Development',
       image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'udhar-book-app'
+      slug: 'udhar-book-app',
+      projectLink: 'https://github.com/yourusername/udhar-book-app'
     },
     {
       title: 'Personal Portfolio Web Development',
       category: 'Website Development',
       image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'personal-portfolio'
+      slug: 'personal-portfolio',
+      projectLink: 'https://your-portfolio.com'
     },
     {
       title: 'Restaurant Management Desktop',
       category: 'Desktop Application',
       image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'restaurant-management'
+      slug: 'restaurant-management',
+      projectLink: 'https://github.com/yourusername/restaurant-management'
     },
     {
       title: 'Expense Tracker Java Development',
       category: 'Desktop Application',
       image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'expense-tracker'
+      slug: 'expense-tracker',
+      projectLink: 'https://github.com/yourusername/expense-tracker'
     },
     {
       title: 'UI/UX Design Project',
       category: 'UI/UX Design',
       image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'ui-ux-design'
+      slug: 'ui-ux-design',
+      projectLink: 'https://dribbble.com/yourusername/ui-ux-design'
     },
     {
       title: 'Graphic Design Portfolio',
       category: 'Graphic Design',
       image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'graphic-design'
+      slug: 'graphic-design',
+      projectLink: 'https://behance.net/yourusername/graphic-design'
     }
   ];
 
@@ -140,32 +148,63 @@ const Portfolio = () => {
                     {project.category}
                   </p>
                   
-                  <Link 
-                    to={`/portfolio/${project.slug}`}
-                    className="btn"
-                    style={{
-                      background: 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '25px',
-                      padding: '8px 20px',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      transition: 'all 0.3s ease',
-                      textDecoration: 'none',
-                      display: 'inline-block'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.transform = 'scale(1.05)';
-                      e.target.style.boxShadow = '0 5px 15px rgba(233, 30, 99, 0.3)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.transform = 'scale(1)';
-                      e.target.style.boxShadow = 'none';
-                    }}
-                  >
-                    View Details
-                  </Link>
+                  <div className="d-flex gap-2 flex-wrap">
+                    <Link 
+                      to={`/portfolio/${project.slug}`}
+                      className="btn"
+                      style={{
+                        background: 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '25px',
+                        padding: '8px 20px',
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        transition: 'all 0.3s ease',
+                        textDecoration: 'none',
+                        display: 'inline-block'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'scale(1.05)';
+                        e.target.style.boxShadow = '0 5px 15px rgba(233, 30, 99, 0.3)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'scale(1)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    >
+                      View Details
+                    </Link>
+                    
+                    <a 
+                      href={project.projectLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn"
+                      style={{
+                        background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '25px',
+                        padding: '8px 20px',
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        transition: 'all 0.3s ease',
+                        textDecoration: 'none',
+                        display: 'inline-block'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'scale(1.05)';
+                        e.target.style.boxShadow = '0 5px 15px rgba(79, 172, 254, 0.3)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'scale(1)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    >
+                      Check Project
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
