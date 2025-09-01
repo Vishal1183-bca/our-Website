@@ -257,28 +257,8 @@ const Home = () => {
         .scroll-animate.delay-8 { transition-delay: 0.8s; }
       `}</style>
 
-      {/* Stats Section */}
-      <section className="py-4 bg-dark-pattern" style={{ marginTop: '76px' }}>
-        <div className="container">
-          <div className="row text-center" ref={statsRef} data-section="stats">
-            {stats.map((stat, index) => (
-              <div key={index} className={`col-6 col-md-3 mb-3 scroll-animate fade-up delay-${index + 1}`} data-animate-id={`stat-${index}`}>
-                <div className="stat-card p-3" style={{ transition: 'transform 0.3s ease' }}
-                     onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                     onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                  <h3 className="fw-bold counter-number animated-text mb-1">
-                    {counters[index]}{stat.suffix}
-                  </h3>
-                  <p className="animated-text mb-0 small">{stat.label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Hero Section */}
-      <section className="modern-hero">
+      <section className="modern-hero" style={{ marginTop: '76px' }}>
         <div className="container-fluid">
           <div className="row align-items-center h-100" ref={heroRef} data-section="hero">
             {/* Left Content */}
@@ -802,6 +782,185 @@ const Home = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="stats-section py-5" style={{ 
+        background: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientWave 6s ease infinite',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <style jsx>{`
+          @keyframes gradientWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          
+          @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+          }
+          
+          @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          
+          @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+          }
+          
+          .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+          }
+          
+          .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: bounce 3s ease-in-out infinite;
+          }
+          
+          .circle-1 {
+            width: 60px;
+            height: 60px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+          }
+          
+          .circle-2 {
+            width: 40px;
+            height: 40px;
+            top: 20%;
+            right: 10%;
+            animation-delay: 1s;
+          }
+          
+          .circle-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 15%;
+            left: 15%;
+            animation-delay: 2s;
+          }
+          
+          .rotating-border {
+            position: absolute;
+            inset: -3px;
+            background: conic-gradient(from 0deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff6b6b);
+            border-radius: 25px;
+            animation: rotate 3s linear infinite;
+            z-index: -1;
+          }
+          
+          .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+          }
+          
+          @media (max-width: 768px) {
+            .stats-section {
+              padding: 3rem 1rem !important;
+            }
+            .stat-card {
+              margin-bottom: 2rem !important;
+            }
+            .floating-elements {
+              display: none;
+            }
+          }
+        `}</style>
+        
+        <div className="floating-elements">
+          <div className="floating-circle circle-1"></div>
+          <div className="floating-circle circle-2"></div>
+          <div className="floating-circle circle-3"></div>
+        </div>
+        
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <div className="row text-center" ref={statsRef} data-section="stats">
+            {stats.map((stat, index) => (
+              <div key={index} className={`col-6 col-md-3 mb-4 scroll-animate fade-up delay-${index + 1}`} data-animate-id={`stat-${index}`}>
+                <div className="stat-card p-4" style={{ 
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(15px)',
+                  borderRadius: '22px',
+                  border: '2px solid rgba(255, 255, 255, 0.3)',
+                  transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-15px) scale(1.05)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.35)';
+                  e.currentTarget.style.boxShadow = '0 25px 50px rgba(0,0,0,0.3)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.6)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }}>
+                  <div className="rotating-border"></div>
+                  
+                  <div className="sparkle" style={{ top: '15px', left: '20px', animationDelay: '0s' }}></div>
+                  <div className="sparkle" style={{ top: '25px', right: '25px', animationDelay: '0.5s' }}></div>
+                  <div className="sparkle" style={{ bottom: '20px', left: '30px', animationDelay: '1s' }}></div>
+                  
+                  <div style={{
+                    position: 'absolute',
+                    top: '10px',
+                    right: '15px',
+                    width: '35px',
+                    height: '35px',
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1))',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '16px'
+                  }}>
+                    {index === 0 ? '📊' : index === 1 ? '🕐' : index === 2 ? '😊' : '⭐'}
+                  </div>
+                  
+                  <h3 className="fw-bold counter-number mb-2" style={{ 
+                    color: 'white',
+                    fontSize: '3rem',
+                    fontWeight: '800',
+                    lineHeight: '1',
+                    textShadow: '0 4px 15px rgba(0,0,0,0.3)',
+                    animation: 'bounce 2s ease-in-out infinite'
+                  }}>
+                    {counters[index]}{stat.suffix}
+                  </h3>
+                  <p className="mb-0" style={{ 
+                    color: 'white',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    letterSpacing: '0.5px',
+                    textShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                  }}>{stat.label}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

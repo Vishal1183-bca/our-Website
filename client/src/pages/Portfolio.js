@@ -31,9 +31,9 @@ const Portfolio = () => {
     {
       title: 'Personal Portfolio Web Development',
       category: 'Website Development',
-      image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       slug: 'personal-portfolio',
-      projectLink: 'https://your-portfolio.com'
+      projectLink: 'https://vishal1183-bca.github.io/Personal-Portfolio-Website/'
     },
     {
       title: 'Restaurant Management Desktop',
@@ -148,7 +148,7 @@ const Portfolio = () => {
                     {project.category}
                   </p>
                   
-                  <div className="d-flex gap-2 flex-wrap">
+                  <div className="d-flex gap-2 align-items-center justify-content-start">
                     <Link 
                       to={`/portfolio/${project.slug}`}
                       className="btn"
