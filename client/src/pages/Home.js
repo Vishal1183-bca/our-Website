@@ -226,6 +226,36 @@ const Home = () => {
           100% { background-position: 0% 50%; }
         }
         
+        @keyframes float3D {
+          0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+          25% { transform: translateY(-20px) rotateX(10deg) rotateY(90deg); }
+          50% { transform: translateY(-40px) rotateX(20deg) rotateY(180deg); }
+          75% { transform: translateY(-20px) rotateX(10deg) rotateY(270deg); }
+        }
+        
+        @keyframes rotate3D {
+          0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+          100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+        
+        @keyframes pulse3D {
+          0%, 100% { transform: scale(1) rotateX(0deg); }
+          50% { transform: scale(1.1) rotateX(180deg); }
+        }
+        
+        @keyframes morphCube {
+          0% { border-radius: 0%; transform: rotateY(0deg); }
+          25% { border-radius: 25%; transform: rotateY(90deg); }
+          50% { border-radius: 50%; transform: rotateY(180deg); }
+          75% { border-radius: 25%; transform: rotateY(270deg); }
+          100% { border-radius: 0%; transform: rotateY(360deg); }
+        }
+        
+        @keyframes cardFloat3D {
+          0%, 100% { transform: rotateY(0deg) rotateX(0deg) translateZ(0px); }
+          50% { transform: rotateY(5deg) rotateX(2deg) translateZ(10px); }
+        }
+        
         .scroll-animate {
           opacity: 0;
           transition: all 0.8s ease-out;
@@ -258,9 +288,94 @@ const Home = () => {
       `}</style>
 
       {/* Hero Section */}
-      <section className="modern-hero" style={{ marginTop: '76px' }}>
-        <div className="container-fluid">
-          <div className="row align-items-center h-100" ref={heroRef} data-section="hero">
+      <section className="modern-hero" style={{ 
+        marginTop: '76px',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <style jsx>{`
+          @keyframes floatUp {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
+          }
+          
+          @keyframes gentleRotate {
+            0% { transform: rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateY(360deg) rotateZ(360deg); }
+          }
+          
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 0.9; }
+          }
+          
+          .bg-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+          }
+          
+          .bg-shape {
+            position: absolute;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+            pointer-events: none;
+            z-index: 1;
+          }
+        `}</style>
+        
+        {/* 3D Background Animation Elements */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none',
+          zIndex: 1
+        }}>
+          <div className="bg-element" style={{
+            top: '10%',
+            left: '5%',
+            width: '60px',
+            height: '60px',
+            animation: 'floatUp 8s ease-in-out infinite'
+          }}></div>
+          <div className="bg-element" style={{
+            top: '20%',
+            right: '10%',
+            width: '40px',
+            height: '40px',
+            animation: 'floatUp 10s ease-in-out infinite reverse'
+          }}></div>
+          <div className="bg-element" style={{
+            bottom: '30%',
+            left: '15%',
+            width: '80px',
+            height: '80px',
+            animation: 'pulse 6s ease-in-out infinite'
+          }}></div>
+          <div className="bg-shape" style={{
+            top: '15%',
+            right: '20%',
+            width: '100px',
+            height: '100px',
+            borderRadius: '20px',
+            animation: 'gentleRotate 20s linear infinite'
+          }}></div>
+          <div className="bg-shape" style={{
+            bottom: '20%',
+            right: '5%',
+            width: '70px',
+            height: '70px',
+            borderRadius: '15px',
+            animation: 'gentleRotate 15s linear infinite reverse'
+          }}></div>
+        </div>
+        
+        <div className="container-fluid" style={{ position: 'relative', zIndex: 2 }}>
+          <div className="row align-items-center h-100" ref={heroRef} data-section="hero" style={{ minHeight: '100vh' }}>
             {/* Left Content */}
             <div className="col-lg-5 col-md-12">
               <div className="hero-content">

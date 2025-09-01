@@ -8,6 +8,27 @@ const Portfolio = () => {
 
   const projects = [
     {
+      title: 'Graphic Design Portfolio',
+      category: 'Graphic Design',
+      image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      slug: 'graphic-design',
+      projectLink: 'https://behance.net/yourusername/graphic-design'
+    },
+    {
+      title: 'Personal Portfolio Web Development',
+      category: 'Website Development',
+      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      slug: 'personal-portfolio',
+      projectLink: 'https://vishal1183-bca.github.io/Personal-Portfolio-Website/'
+    },
+    {
+      title: 'Udhar Book App Development',
+      category: 'Mobile Development',
+      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      slug: 'udhar-book-app',
+      projectLink: 'https://github.com/yourusername/udhar-book-app'
+    },
+    {
       title: 'E-commerce Web Development',
       category: 'Website Development',
       image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
@@ -20,20 +41,6 @@ const Portfolio = () => {
       image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       slug: 'hotel-management',
       projectLink: 'https://github.com/yourusername/hotel-management'
-    },
-    {
-      title: 'Udhar Book App Development',
-      category: 'Mobile Development',
-      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'udhar-book-app',
-      projectLink: 'https://github.com/yourusername/udhar-book-app'
-    },
-    {
-      title: 'Personal Portfolio Web Development',
-      category: 'Website Development',
-      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'personal-portfolio',
-      projectLink: 'https://vishal1183-bca.github.io/Personal-Portfolio-Website/'
     },
     {
       title: 'Restaurant Management Desktop',
@@ -55,13 +62,6 @@ const Portfolio = () => {
       image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       slug: 'ui-ux-design',
       projectLink: 'https://dribbble.com/yourusername/ui-ux-design'
-    },
-    {
-      title: 'Graphic Design Portfolio',
-      category: 'Graphic Design',
-      image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'graphic-design',
-      projectLink: 'https://behance.net/yourusername/graphic-design'
     }
   ];
 

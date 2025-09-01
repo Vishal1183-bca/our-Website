@@ -1,12 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 const ProjectDetail = () => {
   const { projectId } = useParams();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const openImageModal = (image) => {
+    setSelectedImage(image);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeImageModal = () => {
+    setSelectedImage(null);
+    document.body.style.overflow = 'unset';
+  };
 
   const projects = {
     'ecommerce-web': {
@@ -26,12 +37,57 @@ const ProjectDetail = () => {
       features: ['Room Booking System', 'Guest Management', 'Billing & Invoicing', 'Inventory Management', 'Staff Management', 'Reports Generation']
     },
     'udhar-book-app': {
-      title: 'Udhar Book App Development',
+      title: 'Udhar Book App - Complete Digital Ledger Solution',
       category: 'Mobile Development',
       image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      description: 'A mobile application for managing personal loans and credit transactions, helping users track their lending and borrowing activities with friends and family.',
-      technologies: ['Flutter', 'Firebase', 'Dart', 'Cloud Firestore'],
-      features: ['Transaction Tracking', 'Contact Management', 'Payment Reminders', 'Transaction History', 'Secure Authentication', 'Offline Support']
+      overview: 'Udhar Book is a modern digital ledger application designed specifically for shopkeepers and small business owners to efficiently manage customer credit/debit transactions with automated SMS notifications.',
+      description: 'A comprehensive mobile application that revolutionizes traditional bookkeeping for small businesses. Built with Flutter for cross-platform compatibility, it features offline-first architecture, automated SMS notifications, and intuitive Material Design 3 interface.',
+      technologies: ['Flutter', 'Dart', 'SQLite', 'Material Design 3', 'SMS Integration', 'Cross-Platform'],
+      keyFeatures: [
+        '📱 Modern Digital Ledger - Replace traditional paper-based record keeping',
+        '👥 Customer Management - Centralized database with balance tracking',
+        '💰 Transaction Recording - Credit/Debit with real-time balance updates',
+        '📱 SMS Integration - Automatic notifications to customers and shopkeeper',
+        '🎨 Material Design 3 - Clean, intuitive, and professional interface',
+        '🔒 Offline First - Works without internet, data stored locally'
+      ],
+      features: [
+        'Customer Database Management',
+        'Credit/Debit Transaction Recording',
+        'Automated SMS Notifications',
+        'Real-time Balance Calculation',
+        'Offline Data Storage',
+        'Material Design Interface',
+        'Cross-platform Compatibility',
+        'Transaction History Tracking'
+      ],
+      gallery: [
+        {
+          title: 'App Dashboard',
+          description: 'Main dashboard with customer list and balance overview',
+          image: '/images/a1.jpeg'
+        },
+        {
+          title: 'Customer Management',
+          description: 'Add and manage customer information with ease',
+          image: '/images/a2.jpeg'
+        },
+        {
+          title: 'Transaction Recording',
+          description: 'Record credit/debit transactions with item details',
+          image: '/images/a3.jpeg'
+        },
+        {
+          title: 'SMS Notifications',
+          description: 'Automated SMS system for transaction updates',
+          image: '/images/a4.jpeg'
+        },
+        {
+          title: 'Balance Tracking',
+          description: 'Real-time balance calculation and payment tracking',
+          image: '/images/a5.jpeg'
+        }
+      ]
     },
     'personal-portfolio': {
       title: 'Personal Portfolio Web Development',
@@ -171,29 +227,49 @@ const ProjectDetail = () => {
       shortDescription: 'A professional creative design platform built with Laravel 12, featuring database-free architecture, Gmail SMTP integration, and comprehensive design services showcase.',
       gallery: [
         {
-          title: 'Homepage Design',
-          description: 'Modern landing page with professional design showcase and service highlights',
-          image: '/images/sd1.png'
+          title: 'Vector Illustration Design',
+          description: 'Modern vector artwork with creative elements and professional styling',
+          image: '/images/Vector_01.jpg'
         },
         {
-          title: 'Services Portfolio',
-          description: 'Comprehensive display of creative design services and capabilities',
-          image: '/images/sd2.png'
+          title: 'Brand Identity Package',
+          description: 'Complete branding solution with logo and visual identity elements',
+          image: '/images/Vector_02.jpg'
         },
         {
-          title: 'Contact System',
-          description: 'AJAX-powered contact form with real-time validation and Gmail integration',
-          image: '/images/sd3.png'
+          title: 'Creative Vector Graphics',
+          description: 'Innovative vector designs for digital and print media applications',
+          image: '/images/Vector_03.jpg'
         },
         {
-          title: 'Design Gallery',
-          description: 'Professional portfolio showcase with smooth animations and responsive layout',
-          image: '/images/sd4.png'
+          title: 'Visual Communication Design',
+          description: 'Strategic design approach for effective brand communication',
+          image: '/images/Vector_04.jpg'
         },
         {
-          title: 'Mobile Interface',
-          description: 'Fully responsive design optimized for mobile devices and tablets',
-          image: '/images/sd5.png'
+          title: 'Professional Artwork',
+          description: 'High-quality graphic design with attention to detail and creativity',
+          image: '/images/Vector_05.jpg'
+        },
+        {
+          title: 'Marketing Material Design',
+          description: 'Eye-catching designs for promotional and marketing campaigns',
+          image: '/images/01.jpg'
+        },
+        {
+          title: 'Digital Design Solutions',
+          description: 'Modern digital graphics optimized for web and social media',
+          image: '/images/02.jpg'
+        },
+        {
+          title: 'Print Design Excellence',
+          description: 'Professional print-ready designs with perfect color accuracy',
+          image: '/images/03.jpg'
+        },
+        {
+          title: 'Creative Concept Development',
+          description: 'Innovative design concepts that capture brand essence perfectly',
+          image: '/images/04.jpg'
         }
       ]
     }
@@ -502,29 +578,38 @@ const ProjectDetail = () => {
         </section>
       )}
 
+
+
       {/* Project Gallery */}
       {project.gallery && (
-        <section className="py-5" style={{ backgroundColor: 'white' }}>
+        <section className="py-5" style={{ backgroundColor: '#f8f9fa' }}>
           <div className="container">
-            <h2 className="fw-bold text-center mb-5 animate-fade-up" style={{ color: '#1a237e', fontSize: '2.2rem' }}>Project Gallery</h2>
+            <div className="text-center mb-5">
+              <p style={{ color: '#e91e63', fontSize: '14px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px' }}>PORTFOLIO</p>
+              <h2 className="fw-bold animate-fade-up" style={{ color: '#1a237e', fontSize: '2.5rem', marginBottom: '16px' }}>Our Creative Work</h2>
+              <p style={{ color: '#666', fontSize: '16px', maxWidth: '600px', margin: '0 auto' }}>Explore our collection of graphic design projects that showcase our creativity and expertise in visual communication.</p>
+            </div>
+            
             <div className="row g-4">
               {project.gallery.map((item, index) => (
-                <div key={index} className="col-lg-6 col-md-6 animate-scale" style={{ animationDelay: `${index * 0.2}s` }}>
-                  <div className="gallery-item" style={{
+                <div key={index} className="col-lg-4 col-md-6 animate-scale" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div className="gallery-card" style={{
                     background: 'white',
-                    borderRadius: '15px',
+                    borderRadius: '20px',
                     overflow: 'hidden',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-                    transition: 'all 0.4s ease',
-                    cursor: 'pointer'
+                    boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                    position: 'relative'
                   }}
+                  onClick={() => openImageModal(item)}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
+                    e.currentTarget.style.transform = 'translateY(-10px)';
                     e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
                   }}>
                     <div style={{ position: 'relative', overflow: 'hidden' }}>
                       <img 
@@ -532,42 +617,197 @@ const ProjectDetail = () => {
                         alt={item.title}
                         style={{
                           width: '100%',
-                          height: '300px',
-                          objectFit: 'cover',
-                          objectPosition: 'center top',
+                          height: '250px',
+                          objectFit: 'contain',
+                          objectPosition: 'center',
+                          backgroundColor: '#f8f9fa',
                           transition: 'transform 0.3s ease',
-                          borderRadius: '15px 15px 0 0'
+                          padding: '10px'
                         }}
                         onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
                         onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-                        onError={(e) => {
-                          e.target.style.backgroundColor = '#f8f9fa';
-                          e.target.style.display = 'flex';
-                          e.target.style.alignItems = 'center';
-                          e.target.style.justifyContent = 'center';
-                        }}
                       />
                       <div style={{
                         position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%)',
-                        display: 'flex',
-                        alignItems: 'flex-end',
-                        padding: '1.5rem'
+                        top: '15px',
+                        right: '15px',
+                        background: 'rgba(233, 30, 99, 0.9)',
+                        color: 'white',
+                        padding: '8px 12px',
+                        borderRadius: '20px',
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        backdropFilter: 'blur(10px)'
                       }}>
-                        <div>
-                          <h4 style={{ color: 'white', fontSize: '1.2rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                            {item.title}
-                          </h4>
-                          <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '14px', margin: 0, lineHeight: '1.4' }}>
-                            {item.description}
-                          </p>
+                        Design
+                      </div>
+                    </div>
+                    
+                    <div style={{ padding: '25px 20px' }}>
+                      <h4 style={{ 
+                        color: '#1a237e', 
+                        fontSize: '1.1rem', 
+                        fontWeight: '700',
+                        marginBottom: '10px',
+                        lineHeight: '1.3'
+                      }}>
+                        {item.title}
+                      </h4>
+                      <p style={{ 
+                        color: '#666', 
+                        fontSize: '14px', 
+                        lineHeight: '1.5',
+                        margin: '0 0 15px 0'
+                      }}>
+                        {item.description}
+                      </p>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                      }}>
+                        <span style={{
+                          color: '#e91e63',
+                          fontSize: '13px',
+                          fontWeight: '600',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px'
+                        }}>
+                          View Project
+                        </span>
+                        <div style={{
+                          width: '35px',
+                          height: '35px',
+                          background: 'linear-gradient(135deg, #e91e63, #ad1457)',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          transition: 'transform 0.3s ease'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1) rotate(15deg)'}
+                        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1) rotate(0deg)'}>
+                          <span style={{ color: 'white', fontSize: '14px', fontWeight: 'bold' }}>→</span>
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="text-center mt-5">
+              <div style={{
+                background: 'linear-gradient(135deg, #1a237e, #3949ab)',
+                color: 'white',
+                padding: '30px',
+                borderRadius: '20px',
+                maxWidth: '600px',
+                margin: '0 auto'
+              }}>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '15px' }}>
+                  Ready to Start Your Project?
+                </h3>
+                <p style={{ marginBottom: '20px', opacity: 0.9 }}>
+                  Let's bring your creative vision to life with our professional design services.
+                </p>
+                <a 
+                  href="/contact"
+                  style={{
+                    background: 'white',
+                    color: '#1a237e',
+                    padding: '12px 30px',
+                    borderRadius: '25px',
+                    textDecoration: 'none',
+                    fontWeight: '600',
+                    display: 'inline-block',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'translateY(-3px)';
+                    e.target.style.boxShadow = '0 10px 25px rgba(255,255,255,0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                >
+                  Get Started Today →
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Data Models */}
+      {project.dataModels && (
+        <section className="py-5" style={{ backgroundColor: 'white' }}>
+          <div className="container">
+            <h2 className="fw-bold text-center mb-5 animate-fade-up" style={{ color: '#1a237e', fontSize: '2.2rem' }}>Data Models</h2>
+            <div className="row g-4">
+              {Object.entries(project.dataModels).map(([model, fields], index) => (
+                <div key={model} className="col-lg-6 col-md-6 animate-scale" style={{ animationDelay: `${index * 0.2}s` }}>
+                  <div style={{
+                    background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                    padding: '2rem',
+                    borderRadius: '20px',
+                    height: '100%',
+                    border: '2px solid transparent',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer'
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '1.5rem'
+                    }}>
+                      <div style={{
+                        width: '50px',
+                        height: '50px',
+                        background: 'linear-gradient(135deg, #e91e63, #ffc107)',
+                        borderRadius: '12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: '1rem',
+                        fontSize: '1.5rem'
+                      }}>
+                        {model === 'customer' ? '👤' : '📊'}
+                      </div>
+                      <h4 style={{ 
+                        color: '#1a237e', 
+                        fontSize: '1.3rem', 
+                        fontWeight: '700',
+                        margin: 0,
+                        textTransform: 'capitalize'
+                      }}>
+                        {model} Model
+                      </h4>
+                    </div>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                      {fields.map((field, fieldIndex) => (
+                        <li key={fieldIndex} style={{
+                          color: '#666',
+                          fontSize: '14px',
+                          marginBottom: '0.8rem',
+                          paddingLeft: '1.5rem',
+                          position: 'relative'
+                        }}>
+                          <span style={{
+                            position: 'absolute',
+                            left: '0',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            width: '6px',
+                            height: '6px',
+                            background: '#e91e63',
+                            borderRadius: '50%'
+                          }}></span>
+                          {field}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               ))}
@@ -829,6 +1069,111 @@ const ProjectDetail = () => {
           </div>
         </div>
       </section>
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.9)',
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px',
+          animation: 'fadeIn 0.3s ease-out'
+        }}
+        onClick={closeImageModal}>
+          <div style={{
+            position: 'relative',
+            maxWidth: '90vw',
+            maxHeight: '90vh',
+            animation: 'scaleIn 0.3s ease-out'
+          }}
+          onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={closeImageModal}
+              style={{
+                position: 'absolute',
+                top: '-15px',
+                right: '-15px',
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                border: 'none',
+                background: 'white',
+                color: '#1a237e',
+                fontSize: '20px',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                zIndex: 10000,
+                boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = '#e91e63';
+                e.target.style.color = 'white';
+                e.target.style.transform = 'scale(1.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'white';
+                e.target.style.color = '#1a237e';
+                e.target.style.transform = 'scale(1)';
+              }}
+            >
+              ×
+            </button>
+            <img
+              src={selectedImage.image}
+              alt={selectedImage.title}
+              style={{
+                width: '100%',
+                height: 'auto',
+                maxHeight: '80vh',
+                objectFit: 'contain',
+                borderRadius: '15px',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
+              }}
+            />
+            <div style={{
+              position: 'absolute',
+              bottom: '-60px',
+              left: '0',
+              right: '0',
+              textAlign: 'center',
+              color: 'white'
+            }}>
+              <h4 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '8px' }}>
+                {selectedImage.title}
+              </h4>
+              <p style={{ fontSize: '16px', opacity: 0.9, margin: 0 }}>
+                {selectedImage.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        
+        @keyframes scaleIn {
+          from { 
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          to { 
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+      `}</style>
     </div>
   );
 };
