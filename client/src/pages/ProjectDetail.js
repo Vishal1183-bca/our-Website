@@ -115,12 +115,12 @@ const ProjectDetail = () => {
       ],
       gallery: [
         {
-          title: 'App Dashboard',
+          title: 'Customer Management',
           description: 'Main dashboard with customer list and balance overview',
           image: '/images/a1.jpeg'
         },
         {
-          title: 'Customer Management',
+          title: 'App Dashboard',
           description: 'Add and manage customer information with ease',
           image: '/images/a2.jpeg'
         },
