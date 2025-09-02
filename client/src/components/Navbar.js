@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const location = useLocation();
   const isContactPage = location.pathname === '/contact';
+  const navbarCollapseRef = useRef(null);
+
+  const closeNavbar = () => {
+    if (navbarCollapseRef.current && navbarCollapseRef.current.classList.contains('show')) {
+      const bsCollapse = new window.bootstrap.Collapse(navbarCollapseRef.current, {
+        toggle: false
+      });
+      bsCollapse.hide();
+    }
+  };
 
   return (
     <nav className={`navbar navbar-expand-lg fixed-top ${isContactPage ? 'navbar-contact' : 'navbar-default'}`} style={{
@@ -16,39 +26,51 @@ const Navbar = () => {
       boxShadow: '0 2px 20px rgba(0,0,0,0.1)'
     }}>
       <div className="container">
-        <Link className="navbar-brand fw-bold d-flex align-items-center" to="/" style={{
-          color: '#e91e63',
-          fontSize: '1.5rem',
-          textShadow: 'none',
-          transition: 'all 0.3s ease'
+        <Link className="navbar-brand d-flex align-items-center" to="/" style={{
+          transition: 'all 0.3s ease',
+          textDecoration: 'none'
         }}>
           <div style={{
             width: '40px',
             height: '40px',
-            background: 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginRight: '10px'
+            borderRadius: '8px',
+            overflow: 'hidden',
+            marginRight: '12px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            border: '2px solid rgba(233, 30, 99, 0.1)'
           }}>
-            <i className="fas fa-code" style={{ color: 'white', fontSize: '18px' }}></i>
+            <img 
+              src="/images/logo.jpeg" 
+              alt="NeoArch Logo" 
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            />
           </div>
-          NeoArch
+          <span style={{
+            color: '#e91e63',
+            fontSize: '1.4rem',
+            fontWeight: '700',
+            letterSpacing: '-0.5px'
+          }}>NeoArch</span>
         </Link>
         
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style={{
-          border: '1px solid rgba(0,0,0,0.3)'
+          border: 'none',
+          padding: '4px 8px'
         }}>
           <span className="navbar-toggler-icon" style={{
-            backgroundImage: "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\")"
+            backgroundImage: "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\")",
+            filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
           }}></span>
         </button>
         
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="collapse navbar-collapse" id="navbarNav" ref={navbarCollapseRef}>
           <ul className="navbar-nav ms-auto align-items-center">
             <li className="nav-item">
-              <Link className="nav-link" to="/" style={{
+              <Link className="nav-link" to="/" onClick={closeNavbar} style={{
                 color: '#333',
                 fontWeight: '500',
                 margin: '0 0.5rem',
@@ -57,7 +79,7 @@ const Navbar = () => {
               }}>HOME</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about" style={{
+              <Link className="nav-link" to="/about" onClick={closeNavbar} style={{
                 color: '#333',
                 fontWeight: '500',
                 margin: '0 0.5rem',
@@ -80,7 +102,7 @@ const Navbar = () => {
                 padding: '10px 0',
                 minWidth: '200px'
               }}>
-                <li><Link className="dropdown-item" to="/services/web-development" style={{
+                <li><Link className="dropdown-item" to="/services/web-development" onClick={closeNavbar} style={{
                   color: '#333',
                   padding: '10px 20px',
                   fontSize: '14px',
@@ -94,7 +116,7 @@ const Navbar = () => {
                   e.target.style.backgroundColor = 'transparent';
                   e.target.style.color = '#333';
                 }}>Web Development</Link></li>
-                <li><Link className="dropdown-item" to="/services/app-development" style={{
+                <li><Link className="dropdown-item" to="/services/app-development" onClick={closeNavbar} style={{
                   color: '#333',
                   padding: '10px 20px',
                   fontSize: '14px',
@@ -108,7 +130,7 @@ const Navbar = () => {
                   e.target.style.backgroundColor = 'transparent';
                   e.target.style.color = '#333';
                 }}>App Development</Link></li>
-                <li><Link className="dropdown-item" to="/services/ui-ux" style={{
+                <li><Link className="dropdown-item" to="/services/ui-ux" onClick={closeNavbar} style={{
                   color: '#333',
                   padding: '10px 20px',
                   fontSize: '14px',
@@ -122,7 +144,7 @@ const Navbar = () => {
                   e.target.style.backgroundColor = 'transparent';
                   e.target.style.color = '#333';
                 }}>UI/UX</Link></li>
-                <li><Link className="dropdown-item" to="/services/graphic-design" style={{
+                <li><Link className="dropdown-item" to="/services/graphic-design" onClick={closeNavbar} style={{
                   color: '#333',
                   padding: '10px 20px',
                   fontSize: '14px',
@@ -136,7 +158,7 @@ const Navbar = () => {
                   e.target.style.backgroundColor = 'transparent';
                   e.target.style.color = '#333';
                 }}>Graphic Design</Link></li>
-                <li><Link className="dropdown-item" to="/services/desktop-application" style={{
+                <li><Link className="dropdown-item" to="/services/desktop-application" onClick={closeNavbar} style={{
                   color: '#333',
                   padding: '10px 20px',
                   fontSize: '14px',
@@ -153,7 +175,7 @@ const Navbar = () => {
               </ul>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/portfolio" style={{
+              <Link className="nav-link" to="/portfolio" onClick={closeNavbar} style={{
                 color: '#333',
                 fontWeight: '500',
                 margin: '0 0.5rem',
@@ -161,7 +183,7 @@ const Navbar = () => {
               }}>PORTFOLIO</Link>
             </li>
             <li className="nav-item ms-3">
-              <Link to="/contact" className="btn btn-sm" style={{
+              <Link to="/contact" onClick={closeNavbar} className="btn btn-sm" style={{
                 background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
                 color: 'white',
                 border: 'none',

@@ -38,6 +38,27 @@ const About = () => {
   return (
     <div>
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        * {
+          font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .heading-font {
+          font-family: 'Playfair Display', 'Inter', serif;
+        }
+        
+        .text-gradient {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .text-shadow {
+          text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -91,21 +112,44 @@ const About = () => {
           100% { background-position: 200% 0; }
         }
         
+        @keyframes particleFloat {
+          0%, 100% { transform: translateY(0px) translateX(0px); }
+          25% { transform: translateY(-30px) translateX(10px); }
+          50% { transform: translateY(-60px) translateX(-5px); }
+          75% { transform: translateY(-30px) translateX(-10px); }
+        }
+        
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes morphing {
+          0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+          50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+        
         .scroll-animate {
           opacity: 0;
-          transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          will-change: transform, opacity;
         }
         
         .scroll-animate.fade-up {
-          transform: translateY(50px);
+          transform: translateY(60px);
         }
         
         .scroll-animate.fade-left {
-          transform: translateX(-50px);
+          transform: translateX(-60px);
         }
         
         .scroll-animate.fade-right {
-          transform: translateX(50px);
+          transform: translateX(60px);
+        }
+        
+        .scroll-animate.scale {
+          transform: scale(0.8) translateY(30px);
         }
         
         .scroll-animate.delay-1 { transition-delay: 0.1s; }
@@ -135,6 +179,46 @@ const About = () => {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        .particle-bg {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          z-index: 0;
+        }
+        
+        .particle {
+          position: absolute;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 50%;
+          animation: particleFloat 8s ease-in-out infinite;
+        }
+        
+        .gradient-bg {
+          background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+          background-size: 400% 400%;
+          animation: gradientShift 15s ease infinite;
+        }
+        
+        .morphing-shape {
+          animation: morphing 8s ease-in-out infinite;
+        }
+        
+        .glass-effect {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-lift {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
         
         /* Responsive Design */
@@ -236,61 +320,103 @@ const About = () => {
       `}</style>
 
       {/* Hero About Section */}
-      <section className="about-hero py-5" style={{ 
-        background: 'linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 50%, #f0f8ff 100%)', 
+      <section className="about-hero py-5 gradient-bg" style={{ 
         position: 'relative',
         overflow: 'hidden',
-        marginTop: '76px'
+        marginTop: '76px',
+        minHeight: '100vh'
       }}>
-        <div className="container">
+        {/* Animated Particles Background */}
+        <div className="particle-bg">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="particle"
+              style={{
+                width: `${Math.random() * 6 + 4}px`,
+                height: `${Math.random() * 6 + 4}px`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 8}s`,
+                animationDuration: `${Math.random() * 10 + 8}s`
+              }}
+            />
+          ))}
+        </div>
+        
+        {/* Glass Overlay */}
+        <div className="glass-effect" style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 1
+        }} />
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div className="row align-items-center">
             {/* Left Content */}
             <div className="col-lg-6 mb-4">
               <div className="about-content">
-                <h2 className="fw-bold mb-4 scroll-animate fade-left delay-1 shimmer-text" data-animate-id="about-title" style={{ 
-                  fontSize: '2.5rem', 
-                  lineHeight: '1.2',
-                  marginBottom: '2rem'
+                <h2 className="fw-bold mb-4 scroll-animate fade-left delay-1 heading-font" data-animate-id="about-title" style={{ 
+                  fontSize: '3rem', 
+                  lineHeight: '1.1',
+                  marginBottom: '2rem',
+                  background: 'linear-gradient(135deg, #fff 0%, #f0f8ff 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  textShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                  fontWeight: '700',
+                  letterSpacing: '-0.02em'
                 }}>
-                  Unlock Your Business's True Potential
+                  Architecting Digital Excellence
                 </h2>
                 
                 <p className="mb-4 scroll-animate fade-left delay-2" data-animate-id="about-desc1" style={{ 
-                  color: '#666', 
+                  color: 'rgba(255,255,255,0.9)', 
                   fontSize: '16px', 
-                  lineHeight: '1.6' 
+                  lineHeight: '1.6',
+                  textShadow: '0 1px 2px rgba(0,0,0,0.1)'
                 }}>
-                  With <span style={{ color: '#e91e63', fontWeight: '600' }}>GJTecho.com</span> by your side, you can unlock the true potential of your business and take it to the next level with our comprehensive set of digital solutions. We'll help you create an engaging website that will draw in new customers, craft high-quality content to boost online visibility, and leverage social media to increase brand awareness.
+                  At <span style={{ color: '#fff', fontWeight: '600', textShadow: '0 0 10px rgba(255,255,255,0.5)' }}>NeoArch</span>, we specialize in crafting innovative digital architectures that transform businesses. Our expert team designs cutting-edge web solutions, develops robust applications, and creates seamless user experiences that drive growth and engagement in today's competitive digital landscape.
                 </p>
                 
-                <h3 className="fw-bold mb-3 scroll-animate fade-left delay-3" data-animate-id="about-subtitle1" style={{ 
-                  color: '#1a237e', 
-                  fontSize: '1.8rem' 
+                <h3 className="fw-bold mb-3 scroll-animate fade-left delay-3 heading-font" data-animate-id="about-subtitle1" style={{ 
+                  color: '#fff', 
+                  fontSize: '2rem',
+                  textShadow: '0 4px 8px rgba(0,0,0,0.3)',
+                  fontWeight: '600',
+                  letterSpacing: '-0.01em'
                 }}>
-                  More For Less
+                  Innovation Meets Excellence
                 </h3>
                 
                 <p className="mb-4 scroll-animate fade-left delay-4" data-animate-id="about-desc2" style={{ 
-                  color: '#666', 
+                  color: 'rgba(255,255,255,0.9)', 
                   fontSize: '16px', 
-                  lineHeight: '1.6' 
+                  lineHeight: '1.6',
+                  textShadow: '0 1px 2px rgba(0,0,0,0.1)'
                 }}>
-                  At GJTecho.com, we believe in delivering <span style={{ color: '#e91e63', fontWeight: '600' }}>more for less</span>. We offer a wide range of IT solutions at prices that are much lower than most other digital agencies but with no compromise on quality or service delivery.
+                  We combine <span style={{ color: '#fff', fontWeight: '600', textShadow: '0 0 10px rgba(255,255,255,0.5)' }}>creative innovation</span> with technical expertise to deliver exceptional digital solutions. Our approach focuses on understanding your unique business needs and creating tailored strategies that maximize impact while ensuring cost-effectiveness and timely delivery.
                 </p>
                 
-                <h3 className="fw-bold mb-3 scroll-animate fade-left delay-5" data-animate-id="about-subtitle2" style={{ 
-                  color: '#1a237e', 
-                  fontSize: '1.8rem' 
+                <h3 className="fw-bold mb-3 scroll-animate fade-left delay-5 heading-font" data-animate-id="about-subtitle2" style={{ 
+                  color: '#fff', 
+                  fontSize: '2rem',
+                  textShadow: '0 4px 8px rgba(0,0,0,0.3)',
+                  fontWeight: '600',
+                  letterSpacing: '-0.01em'
                 }}>
-                  Achieve Your Goals
+                  Your Success, Our Mission
                 </h3>
                 
                 <p className="mb-4 scroll-animate fade-left delay-6" data-animate-id="about-desc3" style={{ 
-                  color: '#666', 
+                  color: 'rgba(255,255,255,0.9)', 
                   fontSize: '16px', 
-                  lineHeight: '1.6' 
+                  lineHeight: '1.6',
+                  textShadow: '0 1px 2px rgba(0,0,0,0.1)'
                 }}>
-                  Our talented team will analyze your goals and develop a tailored strategy that will help you reach them faster and more efficiently. With our advanced technology, we can provide the <span style={{ color: '#e91e63', fontWeight: '600' }}>highest quality of services</span> at a fraction of the cost, saving you time and money in the long run!
+                  From concept to deployment, we partner with you every step of the way. Our dedicated professionals leverage the latest technologies and industry best practices to build <span style={{ color: '#fff', fontWeight: '600', textShadow: '0 0 10px rgba(255,255,255,0.5)' }}>scalable, secure, and stunning</span> digital solutions that not only meet your current needs but also adapt to future growth.
                 </p>
                 
                 <div className="scroll-animate fade-left delay-7" data-animate-id="about-cta">
@@ -298,16 +424,26 @@ const About = () => {
                     to="/contact" 
                     className="btn px-4 py-2"
                     style={{
-                      background: 'linear-gradient(135deg, #ff7b7b 0%, #ff9a9a 100%)',
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%)',
                       color: 'white',
                       borderRadius: '25px',
                       fontWeight: '500',
                       textDecoration: 'none',
-                      border: 'none',
-                      transition: 'all 0.3s ease'
+                      border: '2px solid rgba(255,255,255,0.3)',
+                      backdropFilter: 'blur(10px)',
+                      transition: 'all 0.3s ease',
+                      boxShadow: '0 8px 20px rgba(0,0,0,0.1)'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)';
+                      e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%)';
+                      e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'scale(1) translateY(0)';
+                      e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%)';
+                      e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.1)';
+                    }}
                   >
                     Contact Us →
                   </Link>
@@ -317,7 +453,7 @@ const About = () => {
             
             {/* Right Content - Image */}
             <div className="col-lg-6 mb-4">
-              <div className="about-image-container scroll-animate fade-right delay-3 floating-element" data-animate-id="about-image" style={{ 
+              <div className="about-image-container scroll-animate fade-right delay-3 floating-element hover-lift" data-animate-id="about-image" style={{ 
                 position: 'relative',
                 textAlign: 'center'
               }}>
@@ -329,128 +465,139 @@ const About = () => {
                     borderRadius: '20px',
                     maxWidth: '100%',
                     height: 'auto',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
+                    boxShadow: '0 25px 50px rgba(0,0,0,0.2)',
+                    border: '3px solid rgba(255,255,255,0.3)'
                   }}
                 />
                 
-                {/* Decorative Elements */}
-                <div className="pulse-element" style={{
+                {/* Enhanced Decorative Elements */}
+                <div className="pulse-element morphing-shape" style={{
                   position: 'absolute',
                   top: '10%',
                   left: '-10%',
                   width: '80px',
                   height: '80px',
-                  background: 'linear-gradient(135deg, #ff7b7b 0%, #ff9a9a 100%)',
-                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%)',
                   opacity: 0.8,
                   zIndex: -1,
-                  boxShadow: '0 0 20px rgba(255, 123, 123, 0.4)'
+                  boxShadow: '0 0 30px rgba(255, 255, 255, 0.3)',
+                  backdropFilter: 'blur(10px)'
                 }}></div>
                 
-                <div className="floating-element" style={{
+                <div className="floating-element morphing-shape" style={{
                   position: 'absolute',
                   bottom: '15%',
                   right: '-5%',
                   width: '60px',
                   height: '60px',
-                  background: 'linear-gradient(135deg, #7b7bff 0%, #9a9aff 100%)',
-                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%)',
                   opacity: 0.8,
                   zIndex: -1,
-                  boxShadow: '0 0 20px rgba(123, 123, 255, 0.4)',
-                  animationDelay: '2s'
+                  boxShadow: '0 0 25px rgba(255, 255, 255, 0.2)',
+                  animationDelay: '2s',
+                  backdropFilter: 'blur(10px)'
                 }}></div>
                 
-                <div className="pulse-element" style={{
+                <div className="pulse-element morphing-shape" style={{
                   position: 'absolute',
                   top: '60%',
                   left: '-5%',
                   width: '40px',
                   height: '40px',
-                  background: 'linear-gradient(135deg, #7bff7b 0%, #9aff9a 100%)',
-                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%)',
                   opacity: 0.8,
                   zIndex: -1,
-                  boxShadow: '0 0 20px rgba(123, 255, 123, 0.4)',
-                  animationDelay: '4s'
+                  boxShadow: '0 0 20px rgba(255, 255, 255, 0.2)',
+                  animationDelay: '4s',
+                  backdropFilter: 'blur(10px)'
                 }}></div>
               </div>
             </div>
           </div>
         </div>
         
-        {/* Background Decorative Elements */}
-        <div className="rotating-element" style={{
+        {/* Enhanced Background Decorative Elements */}
+        <div className="rotating-element morphing-shape" style={{
           position: 'absolute',
           top: '5%',
           right: '5%',
           width: '100px',
           height: '100px',
-          background: 'linear-gradient(45deg, rgba(233, 30, 99, 0.1), rgba(233, 30, 99, 0.2))',
-          borderRadius: '50%',
+          background: 'linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
           zIndex: 0,
-          border: '2px dashed rgba(233, 30, 99, 0.3)'
+          border: '2px dashed rgba(255,255,255,0.2)',
+          backdropFilter: 'blur(5px)'
         }}></div>
         
-        <div className="floating-element" style={{
+        <div className="floating-element morphing-shape" style={{
           position: 'absolute',
           bottom: '10%',
           left: '3%',
           width: '120px',
           height: '120px',
-          background: 'linear-gradient(45deg, rgba(26, 35, 126, 0.1), rgba(26, 35, 126, 0.2))',
-          borderRadius: '50%',
+          background: 'linear-gradient(45deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))',
           zIndex: 0,
-          border: '2px dashed rgba(26, 35, 126, 0.3)',
-          animationDelay: '3s'
+          border: '2px dashed rgba(255,255,255,0.15)',
+          animationDelay: '3s',
+          backdropFilter: 'blur(5px)'
         }}></div>
         
-        {/* Additional Floating Elements */}
-        <div className="pulse-element" style={{
+        {/* Additional Enhanced Floating Elements */}
+        <div className="pulse-element morphing-shape" style={{
           position: 'absolute',
           top: '20%',
           left: '10%',
           width: '60px',
           height: '60px',
-          background: 'linear-gradient(45deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.2))',
-          borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
+          background: 'linear-gradient(45deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06))',
           zIndex: 0,
-          animationDelay: '1s'
+          animationDelay: '1s',
+          backdropFilter: 'blur(8px)'
         }}></div>
         
-        <div className="rotating-element" style={{
+        <div className="rotating-element morphing-shape" style={{
           position: 'absolute',
           bottom: '30%',
           right: '15%',
           width: '80px',
           height: '80px',
-          background: 'linear-gradient(45deg, rgba(79, 172, 254, 0.1), rgba(79, 172, 254, 0.2))',
-          borderRadius: '50% 20% 50% 20%',
+          background: 'linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
           zIndex: 0,
-          animationDelay: '2s'
+          animationDelay: '2s',
+          backdropFilter: 'blur(6px)'
         }}></div>
       </section>
 
       {/* Vision and Mission Section */}
       <section className="vision-mission-section py-5" style={{ 
-        background: 'linear-gradient(135deg, #f0f2f5 0%, #e8eef5 50%, #f5f7fa 100%)',
+        background: 'linear-gradient(135deg, #ffffff 0%, #f8f9ff 50%, #ffffff 100%)',
         position: 'relative',
         overflow: 'hidden'
       }}>
-        <div className="container">
+        {/* Subtle Background Pattern */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(233, 30, 99, 0.05) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(26, 35, 126, 0.05) 0%, transparent 50%)',
+          zIndex: 0
+        }} />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           {/* Header Text */}
           <div className="row mb-5">
             <div className="col-lg-6 scroll-animate fade-up delay-1" data-animate-id="vm-header">
-              <h2 className="fw-bold mb-4" style={{ color: '#1a237e', fontSize: '2.2rem', lineHeight: '1.3' }}>
-                Website Banega Tabhi Toh Business Badhega
+              <h2 className="fw-bold mb-4 heading-font text-gradient" style={{ fontSize: '2.8rem', lineHeight: '1.2', fontWeight: '700', letterSpacing: '-0.02em' }}>
+                Building Tomorrow's Digital Foundation Today
               </h2>
             </div>
             <div className="col-lg-6 scroll-animate fade-up delay-2" data-animate-id="vm-description">
               <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-                A website is an online identity - which is as important as an office for your business. Today your online reputation can create or destroy your brand image and customer perspective towards your product or service.
+                In today's digital-first world, your online presence is the cornerstone of business success. NeoArch understands that every pixel, every interaction, and every line of code contributes to your brand's digital narrative.
               </p>
               <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.6' }}>
-                A recent study shows that by 2023, over 85% of consumers in the world decide on availing a service or buying a product by comparing several websites, even bulk orders have increased up to 25% over the last year. So, a result-oriented website can play a really important role in adding revenue to your business.
+                We don't just build websites and applications; we architect digital experiences that resonate with your audience, drive engagement, and convert visitors into loyal customers. Our holistic approach ensures your digital assets work seamlessly together to achieve your business objectives.
               </p>
             </div>
           </div>
@@ -459,14 +606,15 @@ const About = () => {
           <div className="row">
             {/* Our Vision */}
             <div className="col-lg-6 mb-4">
-              <div className="vision-card scroll-animate fade-left delay-3" data-animate-id="vision-card" style={{
-                background: 'white',
+              <div className="vision-card scroll-animate fade-left delay-3 hover-lift" data-animate-id="vision-card" style={{
+                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%)',
                 borderRadius: '20px',
                 padding: '2.5rem',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.08)',
                 height: '100%',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                border: '1px solid rgba(233, 30, 99, 0.1)'
               }}>
                 {/* Icon */}
                 <div className="mb-4" style={{ textAlign: 'center' }}>
@@ -485,15 +633,15 @@ const About = () => {
                   </div>
                 </div>
                 
-                <h3 className="fw-bold mb-4 text-center" style={{ color: '#e91e63', fontSize: '1.8rem' }}>Our Vision</h3>
+                <h3 className="fw-bold mb-4 text-center heading-font" style={{ color: '#e91e63', fontSize: '2rem', fontWeight: '600', letterSpacing: '-0.01em' }}>Our Vision</h3>
                 
                 <div className="vision-points">
                   {[
-                    'Leading provider: Our vision is to be a leading provider of innovative and effective digital solutions that help businesses achieve their online goals.',
-                    'Cutting-edge technology: We strive to stay at the forefront of emerging technologies and industry trends to provide our clients with the best possible outcomes.',
-                    'Our vision is to continually raise the bar of the customer experience by using the internet and technology we are helping you to build your online business.',
-                    'Continuous improvement: We believe in continuously improving our services and processes to provide the best possible solutions to our clients.',
-                    'Customer-centric approach'
+                    'To be the premier digital architecture firm that transforms businesses through innovative technology solutions and creative excellence.',
+                    'Pioneering next-generation web technologies and development methodologies that set new industry standards.',
+                    'Creating digital ecosystems that seamlessly integrate user experience, functionality, and business intelligence.',
+                    'Fostering long-term partnerships built on trust, transparency, and measurable results.',
+                    'Empowering businesses to thrive in the digital age through scalable and future-ready solutions.'
                   ].map((point, index) => (
                     <div key={index} className="d-flex mb-3" style={{ alignItems: 'flex-start' }}>
                       <div style={{
@@ -516,14 +664,15 @@ const About = () => {
 
             {/* Our Mission */}
             <div className="col-lg-6 mb-4">
-              <div className="mission-card scroll-animate fade-right delay-4" data-animate-id="mission-card" style={{
-                background: 'white',
+              <div className="mission-card scroll-animate fade-right delay-4 hover-lift" data-animate-id="mission-card" style={{
+                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%)',
                 borderRadius: '20px',
                 padding: '2.5rem',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.08)',
                 height: '100%',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                border: '1px solid rgba(26, 35, 126, 0.1)'
               }}>
                 {/* Icon */}
                 <div className="mb-4" style={{ textAlign: 'center' }}>
@@ -552,15 +701,15 @@ const About = () => {
                   </div>
                 </div>
                 
-                <h3 className="fw-bold mb-4 text-center" style={{ color: '#e91e63', fontSize: '1.8rem' }}>Our Mission</h3>
+                <h3 className="fw-bold mb-4 text-center heading-font" style={{ color: '#e91e63', fontSize: '2rem', fontWeight: '600', letterSpacing: '-0.01em' }}>Our Mission</h3>
                 
                 <div className="mission-points">
                   {[
-                    'Our mission is to provide exceptional web development and digital marketing services that help businesses succeed online.',
-                    'We strive to create innovative and customized web solutions that meet our clients\' unique needs and goals.',
-                    'We aim to build long-lasting relationships with our clients by providing responsive and personalized customer service.',
-                    'Our mission is to empower businesses of all sizes and industries to leverage the power of digital marketing to achieve their growth objectives.',
-                    'Our mission is to be a trusted and reliable partner for our clients, providing them with the guidance and support they need to succeed online.'
+                    'Delivering cutting-edge digital solutions that combine aesthetic excellence with robust functionality and optimal performance.',
+                    'Collaborating closely with clients to understand their vision and translate it into powerful digital experiences.',
+                    'Maintaining the highest standards of code quality, security, and user experience across all our projects.',
+                    'Providing ongoing support and strategic guidance to ensure our clients\' continued digital success and growth.',
+                    'Building sustainable, scalable solutions that adapt and evolve with changing business needs and market dynamics.'
                   ].map((point, index) => (
                     <div key={index} className="d-flex mb-3" style={{ alignItems: 'flex-start' }}>
                       <div style={{
@@ -606,11 +755,21 @@ const About = () => {
 
       {/* Why Choose Us Section */}
       <section className="why-choose-section py-5" style={{ 
-        background: 'linear-gradient(135deg, #ffffff 0%, #f8f9ff 50%, #ffffff 100%)',
+        background: 'linear-gradient(135deg, #f8f9ff 0%, #ffffff 50%, #f0f8ff 100%)',
         position: 'relative',
         overflow: 'hidden'
       }}>
-        <div className="container">
+        {/* Animated Background Elements */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: 'radial-gradient(circle at 20% 80%, rgba(233, 30, 99, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(26, 35, 126, 0.03) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(79, 172, 254, 0.02) 0%, transparent 50%)',
+          zIndex: 0
+        }} />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div className="text-center mb-5">
             <p className="text-uppercase fw-bold mb-2 scroll-animate fade-up delay-1" data-animate-id="wcu-subtitle" style={{ 
               color: '#e91e63', 
@@ -620,9 +779,11 @@ const About = () => {
             }}>
               WE ARE AWESOME
             </p>
-            <h2 className="fw-bold scroll-animate fade-up delay-2 shimmer-text" data-animate-id="wcu-title" style={{ 
-              fontSize: '2.5rem',
-              marginBottom: '3rem'
+            <h2 className="fw-bold scroll-animate fade-up delay-2 shimmer-text heading-font" data-animate-id="wcu-title" style={{ 
+              fontSize: '3rem',
+              marginBottom: '3rem',
+              fontWeight: '700',
+              letterSpacing: '-0.02em'
             }}>
               Why Choose Us
             </h2>
@@ -631,15 +792,15 @@ const About = () => {
           <div className="row g-4">
             {/* Research and Analysis */}
             <div className="col-lg-3 col-md-6 mb-4">
-              <div className="feature-card scroll-animate fade-up delay-3" data-animate-id="feature-1" style={{
-                background: 'white',
+              <div className="feature-card scroll-animate fade-up delay-3 hover-lift" data-animate-id="feature-1" style={{
+                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%)',
                 borderRadius: '20px',
                 padding: '2.5rem 1.5rem',
                 textAlign: 'center',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                border: '1px solid #f0f0f0',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.06)',
+                border: '1px solid rgba(79, 172, 254, 0.1)',
                 height: '100%',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-10px)';
@@ -662,21 +823,22 @@ const About = () => {
                 }}>
                   <i className="fas fa-search" style={{ color: 'white', fontSize: '2rem' }}></i>
                 </div>
-                <h4 className="fw-bold mb-3" style={{ color: '#1a237e', fontSize: '1.3rem' }}>Research and Analysis</h4>
+                <h4 className="fw-bold mb-3" style={{ color: '#1a237e', fontSize: '1.3rem' }}>Strategic Planning & Research</h4>
+                <p style={{ color: '#666', fontSize: '14px', lineHeight: '1.5' }}>Deep market analysis and user research to create data-driven digital strategies.</p>
               </div>
             </div>
 
             {/* Affordable Digital Solutions */}
             <div className="col-lg-3 col-md-6 mb-4">
-              <div className="feature-card scroll-animate fade-up delay-4" data-animate-id="feature-2" style={{
-                background: 'white',
+              <div className="feature-card scroll-animate fade-up delay-4 hover-lift" data-animate-id="feature-2" style={{
+                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%)',
                 borderRadius: '20px',
                 padding: '2.5rem 1.5rem',
                 textAlign: 'center',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                border: '1px solid #f0f0f0',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.06)',
+                border: '1px solid rgba(168, 237, 234, 0.2)',
                 height: '100%',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-10px)';
@@ -699,21 +861,22 @@ const About = () => {
                 }}>
                   <i className="fas fa-dollar-sign" style={{ color: '#1a237e', fontSize: '2rem' }}></i>
                 </div>
-                <h4 className="fw-bold mb-3" style={{ color: '#1a237e', fontSize: '1.3rem' }}>Affordable digital solutions</h4>
+                <h4 className="fw-bold mb-3" style={{ color: '#1a237e', fontSize: '1.3rem' }}>Premium Quality, Fair Pricing</h4>
+                <p style={{ color: '#666', fontSize: '14px', lineHeight: '1.5' }}>Enterprise-grade solutions at competitive rates without compromising on quality.</p>
               </div>
             </div>
 
             {/* Creative and Innovative Solutions */}
             <div className="col-lg-3 col-md-6 mb-4">
-              <div className="feature-card scroll-animate fade-up delay-5" data-animate-id="feature-3" style={{
-                background: 'white',
+              <div className="feature-card scroll-animate fade-up delay-5 hover-lift" data-animate-id="feature-3" style={{
+                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%)',
                 borderRadius: '20px',
                 padding: '2.5rem 1.5rem',
                 textAlign: 'center',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                border: '1px solid #f0f0f0',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.06)',
+                border: '1px solid rgba(102, 126, 234, 0.15)',
                 height: '100%',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-10px)';
@@ -736,21 +899,22 @@ const About = () => {
                 }}>
                   <i className="fas fa-lightbulb" style={{ color: 'white', fontSize: '2rem' }}></i>
                 </div>
-                <h4 className="fw-bold mb-3" style={{ color: '#1a237e', fontSize: '1.3rem' }}>Creative and innovative solutions</h4>
+                <h4 className="fw-bold mb-3" style={{ color: '#1a237e', fontSize: '1.3rem' }}>Innovation & Creativity</h4>
+                <p style={{ color: '#666', fontSize: '14px', lineHeight: '1.5' }}>Cutting-edge designs and technologies that set your brand apart from competitors.</p>
               </div>
             </div>
 
             {/* Transparency and Ease of Work */}
             <div className="col-lg-3 col-md-6 mb-4">
-              <div className="feature-card scroll-animate fade-up delay-6" data-animate-id="feature-4" style={{
-                background: 'white',
+              <div className="feature-card scroll-animate fade-up delay-6 hover-lift" data-animate-id="feature-4" style={{
+                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%)',
                 borderRadius: '20px',
                 padding: '2.5rem 1.5rem',
                 textAlign: 'center',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                border: '1px solid #f0f0f0',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.06)',
+                border: '1px solid rgba(137, 247, 254, 0.2)',
                 height: '100%',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-10px)';
@@ -773,7 +937,8 @@ const About = () => {
                 }}>
                   <i className="fas fa-check-circle" style={{ color: 'white', fontSize: '2rem' }}></i>
                 </div>
-                <h4 className="fw-bold mb-3" style={{ color: '#1a237e', fontSize: '1.3rem' }}>Transparency and ease of work</h4>
+                <h4 className="fw-bold mb-3" style={{ color: '#1a237e', fontSize: '1.3rem' }}>Transparent Communication</h4>
+                <p style={{ color: '#666', fontSize: '14px', lineHeight: '1.5' }}>Clear project timelines, regular updates, and collaborative development process.</p>
               </div>
             </div>
           </div>

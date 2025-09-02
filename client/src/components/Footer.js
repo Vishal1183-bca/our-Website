@@ -7,11 +7,11 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-4">
-            <h5>Digital Agency Vadodara</h5>
-            <p>Your trusted partner for web development, mobile apps, and digital marketing solutions.</p>
+            <h5>NeoArch</h5>
+            <p>Your trusted partner for web development, mobile apps,Desktop Appliction,UI/UX design, and graphic design services.</p>
             <div className="social-links">
-              <a href="#" className="text-white me-3"><i className="fab fa-facebook"></i></a>
-              <a href="#" className="text-white me-3"><i className="fab fa-twitter"></i></a>
+             
+              <a href="#" className="text-white me-3"><i className="fab fa-github"></i></a>
               <a href="#" className="text-white me-3"><i className="fab fa-linkedin"></i></a>
               <a href="#" className="text-white"><i className="fab fa-instagram"></i></a>
             </div>
@@ -19,10 +19,11 @@ const Footer = () => {
           <div className="col-md-4">
             <h5>Services</h5>
             <ul className="list-unstyled">
-              <li><Link to="/services" className="text-white-50">Web Development</Link></li>
-              <li><Link to="/services" className="text-white-50">Mobile Development</Link></li>
-              <li><Link to="/services" className="text-white-50">UI/UX Design</Link></li>
-              <li><Link to="/services" className="text-white-50">Digital Marketing</Link></li>
+              <li><Link to="/services/web-development" className="text-white-50">Web Development</Link></li>
+              <li><Link to="/services/app-development" className="text-white-50">Mobile Development</Link></li>
+              <li><Link to="/services/ui-ux" className="text-white-50">UI/UX Design</Link></li>
+              <li><Link to="/services/graphic-design" className="text-white-50">Graphic Design</Link></li>
+              <li><Link to="/services/desktop-application" className="text-white-50">Desktop Application</Link></li>
             </ul>
           </div>
           <div className="col-md-4">
@@ -35,7 +36,7 @@ const Footer = () => {
         </div>
         <hr className="my-4" />
         <div className="text-center">
-          <p>&copy; {new Date().getFullYear()} Digital Agency Vadodara. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} NeoArch. All rights reserved.</p>
         </div>
       </div>
     </footer>
