@@ -12,6 +12,7 @@ import AppDevelopment from './pages/AppDevelopment';
 import DigitalMarketing from './pages/DigitalMarketing';
 import GraphicDesign from './pages/GraphicDesign';
 import DesktopApplication from './pages/DesktopApplication';
+import HotelManagement from './pages/HotelManagement';
 import ProjectDetail from './pages/ProjectDetail';
 
 function App() {
@@ -335,6 +336,7 @@ function App() {
           <Route path="/services/ui-ux" element={<DigitalMarketing />} />
           <Route path="/services/graphic-design" element={<GraphicDesign />} />
           <Route path="/services/desktop-application" element={<DesktopApplication />} />
+          <Route path="/hotel-management" element={<HotelManagement />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/portfolio/:projectId" element={<ProjectDetail />} />
           <Route path="/about" element={<About />} />

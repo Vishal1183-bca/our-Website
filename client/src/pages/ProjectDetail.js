@@ -34,7 +34,59 @@ const ProjectDetail = () => {
       image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       description: 'A comprehensive hotel management system for managing reservations, guest check-ins, room availability, and billing operations with an intuitive desktop interface.',
       technologies: ['Java', 'JavaFX', 'MySQL', 'JasperReports'],
-      features: ['Room Booking System', 'Guest Management', 'Billing & Invoicing', 'Inventory Management', 'Staff Management', 'Reports Generation']
+      features: ['Room Booking System', 'Guest Management', 'Billing & Invoicing', 'Inventory Management', 'Staff Management', 'Reports Generation'],
+      gallery: [
+        {
+          title: 'Login Interface',
+          description: 'Secure user authentication system with username and password validation',
+          image: '/images/h1.png'
+        },
+        {
+          title: 'Dashboard Overview',
+          description: 'Main control panel with real-time statistics and system overview',
+          image: '/images/h2.png'
+        },
+        {
+          title: 'Customer Registration',
+          description: 'Complete guest registration form with ID verification support',
+          image: '/images/h3.png'
+        },
+        {
+          title: 'Room Management',
+          description: 'Room allocation system with availability tracking and status updates',
+          image: '/images/h4.png'
+        },
+        {
+          title: 'Booking System',
+          description: 'Reservation management interface with real-time availability checking',
+          image: '/images/h5.png'
+        },
+        {
+          title: 'Employee Management',
+          description: 'Staff information system with department-wise organization',
+          image: '/images/h6.png'
+        },
+        {
+          title: 'Billing System',
+          description: 'Automated billing and payment processing with invoice generation',
+          image: '/images/h7.png'
+        },
+        {
+          title: 'Reports Module',
+          description: 'Comprehensive analytics and business reports with data visualization',
+          image: '/images/h8.png'
+        },
+        {
+          title: 'Settings Panel',
+          description: 'System configuration options and administrative controls',
+          image: '/images/h9.png'
+        },
+        {
+          title: 'Database View',
+          description: 'Data management interface with MySQL database integration',
+          image: '/images/h10.png'
+        }
+      ]
     },
     'udhar-book-app': {
       title: 'Udhar Book App - Complete Digital Ledger Solution',

@@ -55,13 +55,6 @@ const Portfolio = () => {
       image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       slug: 'expense-tracker',
       projectLink: 'https://github.com/yourusername/expense-tracker'
-    },
-    {
-      title: 'UI/UX Design Project',
-      category: 'UI/UX Design',
-      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      slug: 'ui-ux-design',
-      projectLink: 'https://dribbble.com/yourusername/ui-ux-design'
     }
   ];
 
@@ -153,9 +146,9 @@ const Portfolio = () => {
                       to={`/portfolio/${project.slug}`}
                       className="btn"
                       style={{
-                        background: 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
-                        color: 'white',
-                        border: 'none',
+                        background: 'white',
+                        color: '#1a237e',
+                        border: '2px solid #e91e63',
                         borderRadius: '25px',
                         padding: '8px 20px',
                         fontSize: '14px',
@@ -165,11 +158,15 @@ const Portfolio = () => {
                         display: 'inline-block'
                       }}
                       onMouseEnter={(e) => {
-                        e.target.style.transform = 'scale(1.05)';
-                        e.target.style.boxShadow = '0 5px 15px rgba(233, 30, 99, 0.3)';
+                        e.target.style.background = '#e91e63';
+                        e.target.style.color = 'white';
+                        e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                        e.target.style.boxShadow = '0 8px 20px rgba(233, 30, 99, 0.3)';
                       }}
                       onMouseLeave={(e) => {
-                        e.target.style.transform = 'scale(1)';
+                        e.target.style.background = 'white';
+                        e.target.style.color = '#1a237e';
+                        e.target.style.transform = 'translateY(0) scale(1)';
                         e.target.style.boxShadow = 'none';
                       }}
                     >

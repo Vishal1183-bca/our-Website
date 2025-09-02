@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   useEffect(() => {
@@ -34,23 +33,25 @@ const Contact = () => {
     setSubmitStatus({ isSubmitting: true, isSubmitted: false, error: null });
 
     try {
-      // EmailJS configuration
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone,
-        service: formData.service,
-        message: formData.message,
-        to_email: 'vishalbhaliya54@gmail.com'
-      };
+      // Formspree configuration
+      const formData2 = new FormData();
+      formData2.append('name', formData.name);
+      formData2.append('email', formData.email);
+      formData2.append('phone', formData.phone);
+      formData2.append('service', formData.service);
+      formData2.append('message', formData.message);
 
-      // Send email using EmailJS
-      await emailjs.send(
-        'service_vishalbhaliya54', // Try this Service ID format
-        'template_rdl0lq8', // Your Template ID
-        templateParams,
-        'PjU6a8Kd00jPw3JUb' // Your Public Key
-      );
+      // Send email using Formspree
+      const response = await fetch('https://formspree.io/f/mdkdpbly', {
+        method: 'POST',
+        body: formData2,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        console.log('Formspree Success');
       
       // Reset form after successful submission
       setFormData({
@@ -69,8 +70,12 @@ const Contact = () => {
         setSubmitStatus({ isSubmitting: false, isSubmitted: false, error: null });
       }, 5000);
       
+      } else {
+        throw new Error('Failed to send message');
+      }
+      
     } catch (error) {
-      console.error('EmailJS Error:', error);
+      console.error('Formspree Error:', error);
       setSubmitStatus({ 
         isSubmitting: false, 
         isSubmitted: false, 
@@ -341,6 +346,25 @@ const Contact = () => {
                 </a>
               </div>
 
+              {/* Address Card */}
+              <div className="contact-card mb-4 p-4" style={{
+                background: 'rgba(255, 255, 255, 0.8)',
+                borderRadius: '20px',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
+                border: '1px solid rgba(0,0,0,0.05)'
+              }}>
+                <div className="d-flex align-items-center mb-2">
+                  <i className="fas fa-map-marker-alt" style={{ color: '#1a237e', fontSize: '20px', marginRight: '10px' }}></i>
+                  <h5 className="mb-0" style={{ color: '#1a237e', fontWeight: '600' }}>Address:</h5>
+                </div>
+                <p className="mb-2" style={{ color: '#666', fontSize: '14px' }}>
+                  Visit us at our office during business hours
+                </p>
+                <p style={{ color: '#1a237e', fontWeight: '500', fontSize: '14px', margin: 0 }}>
+                  Vadodara, Gujarat, India
+                </p>
+              </div>
+
               {/* LinkedIn Card */}
               <div className="contact-card p-4" style={{
                 background: 'rgba(255, 255, 255, 0.8)',
@@ -353,10 +377,10 @@ const Contact = () => {
                   <h5 className="mb-0" style={{ color: '#1a237e', fontWeight: '600' }}>LinkedIn:</h5>
                 </div>
                 <p className="mb-2" style={{ color: '#666', fontSize: '14px' }}>
-                  We are available Monday - Saturday, 24/7
+                  Connect with us on professional network
                 </p>
-                <a href="#" style={{ color: '#1a237e', textDecoration: 'none', fontWeight: '500' }}>
-                  GJTecho.com
+                <a href="https://linkedin.com/company/neoarch" target="_blank" rel="noopener noreferrer" style={{ color: '#0077b5', textDecoration: 'none', fontWeight: '500' }}>
+                  Follow NeoArch →
                 </a>
               </div>
             </div>
@@ -364,6 +388,109 @@ const Contact = () => {
         </div>
       </div>
 
+
+      {/* Map Section */}
+      <div className="map-section mt-5">
+        <div className="container-fluid px-0">
+          <div className="row g-0">
+            <div className="col-12">
+              <div style={{ height: '400px', background: '#f8f9fa', position: 'relative' }}>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117925.21689047896!2d73.09773!3d22.3072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc8ab91a3ddab%3A0xac39d3bfe1473fb8!2sVadodara%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1699000000000!5m2!1sen!2sin"
+                  width="100%"
+                  height="400"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="GJTecho Location"
+                ></iframe>
+                <div style={{
+                  position: 'absolute',
+                  top: '20px',
+                  left: '20px',
+                  background: 'rgba(255,255,255,0.95)',
+                  padding: '15px 20px',
+                  borderRadius: '10px',
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+                }}>
+                  <h6 style={{ color: '#1a237e', fontWeight: '600', margin: 0, fontSize: '14px' }}>
+                    📍 NeoArch Office
+                  </h6>
+                  <p style={{ color: '#666', fontSize: '12px', margin: 0 }}>
+                    Vadodara, Gujarat, India
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ Section */}
+      <div className="faq-section py-5" style={{ backgroundColor: '#f8f9fa' }}>
+        <div className="container">
+          <div className="text-center mb-5">
+            <h2 style={{ color: '#1a237e', fontWeight: '700', fontSize: '2rem' }}>Frequently Asked Questions</h2>
+            <p style={{ color: '#666', fontSize: '16px' }}>Quick answers to common questions</p>
+          </div>
+          
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="accordion" id="faqAccordion">
+                {[
+                  {
+                    id: 'faq1',
+                    question: 'What services do you offer?',
+                    answer: 'We offer web development, mobile app development, UI/UX design, digital marketing, and ecommerce solutions.'
+                  },
+                  {
+                    id: 'faq2', 
+                    question: 'How long does a typical project take?',
+                    answer: 'Project timelines vary based on complexity. Simple websites take 2-4 weeks, while complex applications may take 2-6 months.'
+                  },
+                  {
+                    id: 'faq3',
+                    question: 'Do you provide ongoing support?',
+                    answer: 'Yes, we provide ongoing maintenance and support for all our projects with different service packages.'
+                  },
+                  {
+                    id: 'faq4',
+                    question: 'What is your development process?',
+                    answer: 'We follow an agile methodology with regular client updates, including planning, design, development, testing, and deployment phases.'
+                  }
+                ].map((faq, index) => (
+                  <div key={faq.id} className="accordion-item mb-3" style={{ border: 'none', borderRadius: '10px', overflow: 'hidden' }}>
+                    <h2 className="accordion-header">
+                      <button 
+                        className="accordion-button collapsed" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target={`#${faq.id}`}
+                        style={{
+                          background: 'white',
+                          border: 'none',
+                          color: '#1a237e',
+                          fontWeight: '600',
+                          fontSize: '16px',
+                          padding: '20px'
+                        }}
+                      >
+                        {faq.question}
+                      </button>
+                    </h2>
+                    <div id={faq.id} className="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                      <div className="accordion-body" style={{ background: '#f8f9fa', color: '#666', padding: '20px' }}>
+                        {faq.answer}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </section>
   );

@@ -708,7 +708,7 @@ const Home = () => {
             <div className="col-lg-6 mb-4">
               <p className="text-uppercase fw-bold mb-3 scroll-animate fade-left delay-1" data-animate-id="why-1" style={{ color: '#e91e63', fontSize: '14px', letterSpacing: '1px' }}>WHY CHOOSE US</p>
               <h2 className="fw-bold mb-4 scroll-animate fade-left delay-2" data-animate-id="why-2" style={{ color: '#1a237e', fontSize: '2.2rem', lineHeight: '1.2' }}>
-                Why The GJTecho <span style={{ color: '#e91e63' }}>Ranked Top</span> Among The Leading<br />
+                Why The NeoArch <span style={{ color: '#e91e63' }}>Ranked Top</span> Among The Leading<br />
                 Web Development & Digital<br />
                 Marketing Companies
               </h2>
@@ -823,7 +823,16 @@ const Home = () => {
                         borderRadius: '25px',
                         fontWeight: '500',
                         textDecoration: 'none',
-                        zIndex: 1
+                        zIndex: 1,
+                        transition: 'all 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                        e.target.style.boxShadow = '0 10px 25px rgba(26, 35, 126, 0.3)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'translateY(0) scale(1)';
+                        e.target.style.boxShadow = 'none';
                       }}
                     >
                       Request A Quote →

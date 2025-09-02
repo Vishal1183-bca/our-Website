@@ -34,7 +34,7 @@ const Navbar = () => {
           }}>
             <i className="fas fa-code" style={{ color: 'white', fontSize: '18px' }}></i>
           </div>
-          GJTecho
+          NeoArch
         </Link>
         
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style={{
