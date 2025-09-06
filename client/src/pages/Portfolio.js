@@ -44,42 +44,42 @@ const Portfolio = () => {
       projectLink: 'https://behance.net/yourusername/graphic-design'
     },
     {
-      title: 'Personal Portfolio Web Development',
+      title: 'Personal Portfolio Website',
       category: 'Website Development',
       image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       slug: 'personal-portfolio',
       projectLink: 'https://vishal1183-bca.github.io/Personal-Portfolio-Website/'
     },
     {
-      title: 'Udhar Book App Development',
+      title: 'Udhar Book android and ios App',
       category: 'Mobile Development',
       image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       slug: 'udhar-book-app',
       projectLink: 'https://github.com/yourusername/udhar-book-app'
     },
     {
-      title: 'E-commerce Web Development',
+      title: 'E-commerce Website',
       category: 'Website Development',
       image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       slug: 'ecommerce-web',
       projectLink: 'https://your-ecommerce-project.com'
     },
     {
-      title: 'Hotel Management Desktop Application',
+      title: 'Hotel Management Desktop App',
       category: 'Desktop Application',
       image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       slug: 'hotel-management',
       projectLink: 'https://github.com/yourusername/hotel-management'
     },
     {
-      title: 'Restaurant Management Desktop',
+      title: 'Restaurant Management Desktop App',
       category: 'Desktop Application',
       image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       slug: 'restaurant-management',
       projectLink: 'https://github.com/yourusername/restaurant-management'
     },
     {
-      title: 'Expense Tracker Java Development',
+      title: 'Expense Tracker Java ',
       category: 'Desktop Application',
       image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       slug: 'expense-tracker',

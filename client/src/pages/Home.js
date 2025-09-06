@@ -436,267 +436,6 @@ const Home = () => {
 
 
 
-      {/* Integrated Services Section */}
-      <section className="integrated-services py-5" style={{ backgroundColor: '#f8f9fa' }}>
-        <div className="container" ref={servicesRef} data-section="services">
-          <div className="row">
-            <div className="col-lg-4 mb-4 scroll-animate fade-left delay-1" data-animate-id="services-intro">
-              <div className="service-intro-card p-4 h-100" style={{
-                background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-                borderRadius: '20px',
-                color: 'white',
-                position: 'relative',
-                overflow: 'hidden',
-                transition: 'transform 0.3s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                <div className="service-bg-pattern" style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  width: '100px',
-                  height: '100px',
-                  background: 'rgba(255,255,255,0.1)',
-                  borderRadius: '50%',
-                  transform: 'translate(30px, -30px)'
-                }}></div>
-                <h2 className="fw-bold mb-3" style={{ fontSize: '1.8rem', position: 'relative', zIndex: 2 }}>INTEGRATED SERVICES</h2>
-                <p className="mb-0" style={{ fontSize: '16px', lineHeight: '1.6', position: 'relative', zIndex: 2 }}>
-                  We think big and have hands in all leading technology platforms to provide you wide array of services.
-                </p>
-              </div>
-            </div>
-            
-            <div className="col-lg-8">
-              <div className="row g-4">
-                <div className="col-lg-6 col-md-6 scroll-animate fade-up delay-2" data-animate-id="service-web">
-                  <div className="service-card-integrated p-4" style={{
-                    background: 'linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%)',
-                    borderRadius: '25px',
-                    border: '3px solid #29b6f6',
-                    minHeight: '220px',
-                    boxShadow: '0 8px 25px rgba(41, 182, 246, 0.15)',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
-                    <div className="text-center">
-                      <div className="service-icon mb-3 mx-auto" style={{
-                        width: '70px',
-                        height: '70px',
-                        background: 'linear-gradient(135deg, #29b6f6 0%, #1976d2 100%)',
-                        borderRadius: '20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 4px 15px rgba(41, 182, 246, 0.3)'
-                      }}>
-                        <i className="fas fa-code" style={{ color: 'white', fontSize: '28px' }}></i>
-                      </div>
-                      <h4 className="fw-bold mb-3" style={{ color: '#1565c0', fontSize: '1.2rem' }}>Web Development</h4>
-                      <div className="tech-badges d-flex flex-wrap gap-2 justify-content-center mb-3">
-                        <span className="badge px-3 py-1" style={{ background: '#1976d2', color: 'white', fontSize: '11px', borderRadius: '15px' }}>PHP</span>
-                        <span className="badge px-3 py-1" style={{ background: '#1976d2', color: 'white', fontSize: '11px', borderRadius: '15px' }}>.NET</span>
-                        <span className="badge px-3 py-1" style={{ background: '#1976d2', color: 'white', fontSize: '11px', borderRadius: '15px' }}>JAVA</span>
-                        <span className="badge px-3 py-1" style={{ background: '#1976d2', color: 'white', fontSize: '11px', borderRadius: '15px' }}>PYTHON</span>
-                      </div>
-                      <p style={{ color: '#666', fontSize: '13px', lineHeight: '1.4', margin: 0 }}>
-                        Expert web development using modern technologies for scalable solutions.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="col-lg-6 col-md-6 scroll-animate fade-up delay-3" data-animate-id="service-ecommerce">
-                  <div className="service-card-integrated p-4" style={{
-                    background: 'linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%)',
-                    borderRadius: '25px',
-                    border: '3px solid #ff9800',
-                    minHeight: '220px',
-                    boxShadow: '0 8px 25px rgba(255, 152, 0, 0.15)',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
-                    <div className="text-center">
-                      <div className="service-icon mb-3 mx-auto" style={{
-                        width: '70px',
-                        height: '70px',
-                        background: 'linear-gradient(135deg, #ff9800 0%, #f57c00 100%)',
-                        borderRadius: '20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 4px 15px rgba(255, 152, 0, 0.3)'
-                      }}>
-                        <i className="fas fa-shopping-cart" style={{ color: 'white', fontSize: '28px' }}></i>
-                      </div>
-                      <h4 className="fw-bold mb-3" style={{ color: '#e65100', fontSize: '1.2rem' }}>Ecommerce Development</h4>
-                      <div className="tech-badges d-flex flex-wrap gap-2 justify-content-center mb-3">
-                        <span className="badge px-3 py-1" style={{ background: '#f57c00', color: 'white', fontSize: '11px', borderRadius: '15px' }}>WORDPRESS</span>
-                        <span className="badge px-3 py-1" style={{ background: '#f57c00', color: 'white', fontSize: '11px', borderRadius: '15px' }}>WOOCOMMERCE</span>
-                      </div>
-                      <p style={{ color: '#666', fontSize: '13px', lineHeight: '1.4', margin: 0 }}>
-                        Powerful ecommerce solutions for seamless online shopping experiences.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="col-lg-4 col-md-6 scroll-animate fade-up delay-4" data-animate-id="service-mobile">
-                  <div className="service-card-integrated p-4" style={{
-                    background: 'linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%)',
-                    borderRadius: '25px',
-                    border: '3px solid #9c27b0',
-                    minHeight: '220px',
-                    boxShadow: '0 8px 25px rgba(156, 39, 176, 0.15)',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
-                    <div className="text-center">
-                      <div className="service-icon mb-3 mx-auto" style={{
-                        width: '70px',
-                        height: '70px',
-                        background: 'linear-gradient(135deg, #9c27b0 0%, #6a1b9a 100%)',
-                        borderRadius: '20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 4px 15px rgba(156, 39, 176, 0.3)'
-                      }}>
-                        <i className="fas fa-mobile-alt" style={{ color: 'white', fontSize: '28px' }}></i>
-                      </div>
-                      <h4 className="fw-bold mb-3" style={{ color: '#6a1b9a', fontSize: '1.1rem' }}>Mobile App Development</h4>
-                      <div className="tech-badges d-flex flex-wrap gap-2 justify-content-center mb-3">
-                        <span className="badge px-2 py-1" style={{ background: '#6a1b9a', color: 'white', fontSize: '10px', borderRadius: '12px' }}>SWIFT</span>
-                        <span className="badge px-2 py-1" style={{ background: '#6a1b9a', color: 'white', fontSize: '10px', borderRadius: '12px' }}>KOTLIN</span>
-                        <span className="badge px-2 py-1" style={{ background: '#6a1b9a', color: 'white', fontSize: '10px', borderRadius: '12px' }}>FLUTTER</span>
-                      </div>
-                      <p style={{ color: '#666', fontSize: '12px', lineHeight: '1.4', margin: 0 }}>
-                        High-quality iOS and Android apps using modern technologies.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="col-lg-4 col-md-6 scroll-animate fade-up delay-5" data-animate-id="service-trending">
-                  <div className="service-card-integrated p-4" style={{
-                    background: 'linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%)',
-                    borderRadius: '25px',
-                    border: '3px solid #00bcd4',
-                    minHeight: '220px',
-                    boxShadow: '0 8px 25px rgba(0, 188, 212, 0.15)',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
-                    <div className="text-center">
-                      <div className="service-icon mb-3 mx-auto" style={{
-                        width: '70px',
-                        height: '70px',
-                        background: 'linear-gradient(135deg, #00bcd4 0%, #00695c 100%)',
-                        borderRadius: '20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 4px 15px rgba(0, 188, 212, 0.3)'
-                      }}>
-                        <i className="fas fa-chart-line" style={{ color: 'white', fontSize: '28px' }}></i>
-                      </div>
-                      <h4 className="fw-bold mb-3" style={{ color: '#00695c', fontSize: '1.1rem' }}>Trending Technologies</h4>
-                      <div className="tech-badges d-flex flex-wrap gap-2 justify-content-center mb-3">
-                        <span className="badge px-2 py-1" style={{ background: '#00695c', color: 'white', fontSize: '10px', borderRadius: '12px' }}>REACT.JS</span>
-                        <span className="badge px-2 py-1" style={{ background: '#00695c', color: 'white', fontSize: '10px', borderRadius: '12px' }}>NODE.JS</span>
-                        <span className="badge px-2 py-1" style={{ background: '#00695c', color: 'white', fontSize: '10px', borderRadius: '12px' }}>ANGULAR.JS</span>
-                      </div>
-                      <p style={{ color: '#666', fontSize: '12px', lineHeight: '1.4', margin: 0 }}>
-                        Latest trending technologies for modern scalable solutions.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="col-lg-4 col-md-6 scroll-animate fade-up delay-6" data-animate-id="service-marketing">
-                  <div className="service-card-integrated p-4" style={{
-                    background: 'linear-gradient(135deg, #fff9c4 0%, #fff59d 100%)',
-                    borderRadius: '25px',
-                    border: '3px solid #fbc02d',
-                    minHeight: '220px',
-                    boxShadow: '0 8px 25px rgba(251, 192, 45, 0.15)',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
-                    <div className="text-center">
-                      <div className="service-icon mb-3 mx-auto" style={{
-                        width: '70px',
-                        height: '70px',
-                        background: 'linear-gradient(135deg, #fbc02d 0%, #f57f17 100%)',
-                        borderRadius: '20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 4px 15px rgba(251, 192, 45, 0.3)'
-                      }}>
-                        <i className="fas fa-bullhorn" style={{ color: 'white', fontSize: '28px' }}></i>
-                      </div>
-                      <h4 className="fw-bold mb-3" style={{ color: '#f57f17', fontSize: '1.1rem' }}>Digital Marketing</h4>
-                      <div className="tech-badges d-flex flex-wrap gap-2 justify-content-center mb-3">
-                        <span className="badge px-2 py-1" style={{ background: '#f57f17', color: 'white', fontSize: '10px', borderRadius: '12px' }}>SEO</span>
-                        <span className="badge px-2 py-1" style={{ background: '#f57f17', color: 'white', fontSize: '10px', borderRadius: '12px' }}>SMO</span>
-                        <span className="badge px-2 py-1" style={{ background: '#f57f17', color: 'white', fontSize: '10px', borderRadius: '12px' }}>PPC</span>
-                        <span className="badge px-2 py-1" style={{ background: '#f57f17', color: 'white', fontSize: '10px', borderRadius: '12px' }}>SMM</span>
-                      </div>
-                      <p style={{ color: '#666', fontSize: '12px', lineHeight: '1.4', margin: 0 }}>
-                        Comprehensive digital marketing to boost online presence.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="text-center mt-5 scroll-animate fade-up delay-7" data-animate-id="services-cta">
-            <h3 className="fw-bold mb-3" style={{ color: '#1a237e', fontSize: '2rem' }}>
-              Let's Ask Experts And Obtain <span style={{ color: '#e91e63' }}>Free Proposal</span>
-            </h3>
-            <div style={{ position: 'relative', display: 'inline-block' }}>
-              <div style={{
-                position: 'absolute',
-                inset: '-2px',
-                background: 'linear-gradient(45deg, #4facfe, #e91e63, #ffc107, #4facfe)',
-                borderRadius: '27px',
-                backgroundSize: '400% 400%',
-                animation: 'borderRotate 3s linear infinite',
-                zIndex: 0
-              }}></div>
-              <Link 
-                to="/contact" 
-                className="btn px-4 py-2"
-                style={{
-                  position: 'relative',
-                  background: 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
-                  color: 'white',
-                  borderRadius: '25px',
-                  fontWeight: '600',
-                  textDecoration: 'none',
-                  border: 'none',
-                  zIndex: 1,
-                  transition: 'transform 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                Let's Connect →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Why Choose Us Section */}
       <section className="why-choose-us py-5" style={{ 
         backgroundColor: 'white', 
@@ -1166,14 +905,23 @@ const Home = () => {
                 </div>
               </div>
               
-              <div className="d-flex align-items-center justify-content-center gap-2 scroll-animate fade-up delay-4" data-animate-id="work-4" style={{ color: '#666' }}>
-                <span>Or call us now</span>
-                <i className="fas fa-phone" style={{ color: '#1a237e' }}></i>
-                <a href="tel:+918866392521" style={{ color: '#1a237e', textDecoration: 'none', fontWeight: '500', transition: 'color 0.3s ease' }}
-                   onMouseEnter={(e) => e.target.style.color = '#e91e63'}
-                   onMouseLeave={(e) => e.target.style.color = '#1a237e'}>
-                  +91 88663 92521
-                </a>
+              <div className="text-center scroll-animate fade-up delay-4" data-animate-id="work-4" style={{ color: '#666' }}>
+                <div className="d-flex align-items-center justify-content-center gap-2 mb-2">
+                  <span>Or call us now</span>
+                  <i className="fas fa-phone" style={{ color: '#1a237e' }}></i>
+                  <a href="tel:+919586399316" style={{ color: '#1a237e', textDecoration: 'none', fontWeight: '500', transition: 'color 0.3s ease' }}
+                     onMouseEnter={(e) => e.target.style.color = '#e91e63'}
+                     onMouseLeave={(e) => e.target.style.color = '#1a237e'}>
+                    +91 9586399316
+                  </a>
+                </div>
+                <div>
+                  <a href="tel:+919173040278" style={{ color: '#1a237e', textDecoration: 'none', fontWeight: '500', transition: 'color 0.3s ease' }}
+                     onMouseEnter={(e) => e.target.style.color = '#e91e63'}
+                     onMouseLeave={(e) => e.target.style.color = '#1a237e'}>
+                    +91 9173040278
+                  </a>
+                </div>
               </div>
             </div>
           </div>

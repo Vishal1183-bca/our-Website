@@ -40,7 +40,7 @@ const Navbar = () => {
             border: '2px solid rgba(233, 30, 99, 0.1)'
           }}>
             <img 
-              src="/images/logo.jpeg" 
+              src="/images/logo11.png" 
               alt="NeoArch Logo" 
               style={{
                 width: '100%',

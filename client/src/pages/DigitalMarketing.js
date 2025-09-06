@@ -375,19 +375,24 @@ const DigitalMarketing = () => {
                 </Link>
               </div>
               
-              <div className="d-flex align-items-center justify-content-center gap-2 scroll-animate fade-up delay-4" data-animate-id="cta-phone" style={{ color: '#666' }}>
-                <span>Or call us now</span>
-                <i className="fas fa-phone" style={{ color: '#1a237e' }}></i>
-                <a href="tel:+918866392521" style={{ 
-                  color: '#1a237e', 
-                  textDecoration: 'none', 
-                  fontWeight: '500',
-                  transition: 'color 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.target.style.color = '#e91e63'}
-                onMouseLeave={(e) => e.target.style.color = '#1a237e'}>
-                  +91 88663 92521
-                </a>
+              
+              <div className="text-center scroll-animate fade-up delay-4" data-animate-id="work-4" style={{ color: '#666' }}>
+                <div className="d-flex align-items-center justify-content-center gap-2 mb-2">
+                  <span>Or call us now</span>
+                  <i className="fas fa-phone" style={{ color: '#1a237e' }}></i>
+                  <a href="tel:+919586399316" style={{ color: '#1a237e', textDecoration: 'none', fontWeight: '500', transition: 'color 0.3s ease' }}
+                     onMouseEnter={(e) => e.target.style.color = '#e91e63'}
+                     onMouseLeave={(e) => e.target.style.color = '#1a237e'}>
+                    +91 9586399316
+                  </a>
+                </div>
+                <div>
+                  <a href="tel:+919173040278" style={{ color: '#1a237e', textDecoration: 'none', fontWeight: '500', transition: 'color 0.3s ease' }}
+                     onMouseEnter={(e) => e.target.style.color = '#e91e63'}
+                     onMouseLeave={(e) => e.target.style.color = '#1a237e'}>
+                    +91 9173040278
+                  </a>
+                </div>
               </div>
             </div>
           </div>

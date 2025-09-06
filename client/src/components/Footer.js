@@ -29,7 +29,8 @@ const Footer = () => {
           <div className="col-md-4">
             <h5>Contact Info</h5>
             <p className="mb-1"><i className="fas fa-map-marker-alt me-2"></i>Vadodara, Gujarat, India</p>
-            <p className="mb-1"><i className="fas fa-phone me-2"></i>+91 98765 43210</p>
+            <p className="mb-1"><i className="fas fa-phone me-2"></i>+91 9586399316  </p>
+            <p className="mb-1"><i className="fas fa-phone me-2"></i>+91 9173040278</p>
             <p className="mb-1"><i className="fas fa-envelope me-2"></i>info@digitalagency.com</p>
             <p><i className="fas fa-clock me-2"></i>24/7 Support Available</p>
           </div>

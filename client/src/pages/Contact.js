@@ -317,14 +317,27 @@ const Contact = () => {
                 <p className="mb-2" style={{ color: '#666', fontSize: 'clamp(12px, 2vw, 14px)' }}>
                   Assistance hours: Monday - Saturday, 11 am to 9 pm
                 </p>
-                <a href="tel:+918866392521" style={{ 
-                  color: '#1a237e', 
-                  textDecoration: 'none', 
-                  fontWeight: '500',
-                  fontSize: 'clamp(14px, 2.5vw, 16px)'
-                }}>
-                  (+91) 88663 92521
-                </a>
+                <div>
+                  <a href="tel:+919586399316" style={{ 
+                    color: '#1a237e', 
+                    textDecoration: 'none', 
+                    fontWeight: '500',
+                    fontSize: 'clamp(14px, 2.5vw, 16px)',
+                    display: 'block',
+                    marginBottom: '5px'
+                  }}>
+                    (+91) 9586399316
+                  </a>
+                  <a href="tel:+919173040278" style={{ 
+                    color: '#1a237e', 
+                    textDecoration: 'none', 
+                    fontWeight: '500',
+                    fontSize: 'clamp(14px, 2.5vw, 16px)',
+                    display: 'block'
+                  }}>
+                    (+91) 9173040278
+                  </a>
+                </div>
               </div>
 
               {/* Email Card */}

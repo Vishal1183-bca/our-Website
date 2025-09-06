@@ -21,7 +21,7 @@ const ProjectDetail = () => {
 
   const projects = {
     'ecommerce-web': {
-      title: 'E-commerce Web Development',
+      title: 'E-commerce ',
       category: 'Website Development',
       image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       description: 'A comprehensive e-commerce platform built with modern web technologies, featuring user authentication, product catalog, shopping cart, and secure payment integration.',
@@ -679,7 +679,7 @@ const ProjectDetail = () => {
                         onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
                         onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
                       />
-                      <div style={{
+                      {/* <div style={{
                         position: 'absolute',
                         top: '15px',
                         right: '15px',
@@ -692,7 +692,7 @@ const ProjectDetail = () => {
                         backdropFilter: 'blur(10px)'
                       }}>
                         Design
-                      </div>
+                      </div> */}
                     </div>
                     
                     <div style={{ padding: '25px 20px' }}>
@@ -718,15 +718,7 @@ const ProjectDetail = () => {
                         alignItems: 'center',
                         justifyContent: 'space-between'
                       }}>
-                        <span style={{
-                          color: '#e91e63',
-                          fontSize: '13px',
-                          fontWeight: '600',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.5px'
-                        }}>
-                          View Project
-                        </span>
+                     
                         <div style={{
                           width: '35px',
                           height: '35px',
