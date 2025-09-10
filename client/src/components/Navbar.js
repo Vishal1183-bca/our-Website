@@ -54,7 +54,7 @@ const Navbar = () => {
             fontSize: '1.4rem',
             fontWeight: '700',
             letterSpacing: '-0.5px'
-          }}>NeoArch</span>
+          }}></span>
         </Link>
         
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style={{

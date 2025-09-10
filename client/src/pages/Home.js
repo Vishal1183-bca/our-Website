@@ -8,10 +8,10 @@ const Home = () => {
   }, []);
 
   const stats = [
-    { number: 20, suffix: '+', label: 'Projects/Year' },
+    { number: 7, suffix: '+', label: 'Projects/Year' },
     { number: 24, suffix: '/7', label: 'Support' },
     { number: 100, suffix: '%', label: 'Client Satisfaction' },
-    { number: 5, suffix: '+', label: 'Years Experience' }
+    { number: 1, suffix: '+', label: 'Years Experience' }
   ];
 
   const services = [

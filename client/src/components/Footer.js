@@ -31,7 +31,7 @@ const Footer = () => {
             <p className="mb-1"><i className="fas fa-map-marker-alt me-2"></i>Vadodara, Gujarat, India</p>
             <p className="mb-1"><i className="fas fa-phone me-2"></i>+91 9586399316  </p>
             <p className="mb-1"><i className="fas fa-phone me-2"></i>+91 9173040278</p>
-            <p className="mb-1"><i className="fas fa-envelope me-2"></i>info@digitalagency.com</p>
+            <p className="mb-1"><i className="fas fa-envelope me-2"></i>neoarch2025@gmail.com</p>
             <p><i className="fas fa-clock me-2"></i>24/7 Support Available</p>
           </div>
         </div>
